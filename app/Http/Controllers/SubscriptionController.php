@@ -32,6 +32,7 @@ class SubscriptionController extends Controller
         Subscription::create([
             'user_id' =>$request->user_id,
             'name' => $request->name,
+            'price' => $request->price,
             'frequency' => $request->frequency,
             'first_payment_day' => $request->first_payment_day,
             'url' => $request->url,
@@ -46,5 +47,34 @@ class SubscriptionController extends Controller
         $subscription = Subscription::find($id);
 
         return  view('subscriptions.show', compact('subscription'));
+    }
+
+    public function edit($id)
+    {
+        $subscription = Subscription::find($id);
+        return view('subscriptions.edit', compact('subscription'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $subscription = Subscription::find($id);
+
+        $subscription->name = $request->name;
+        $subscription->price = $request->price;
+        $subscription->frequency = $request->frequency;
+        $subscription->first_payment_day = $request->first_payment_day;
+        $subscription->url = $request->url;
+        $subscription->memo = $request->memo;
+        $subscription->save();
+
+        return to_route('subscriptions.show', ['id' => $id]);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $subscription = Subscription::find($id);
+        $subscription->delete();
+
+        return to_route('subscriptions.index');
     }
 }

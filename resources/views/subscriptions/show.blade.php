@@ -9,6 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <a href="{{ route('subscriptions.index') }}">x</a>
+                <a href="{{ route('subscriptions.edit', ['id' => $subscription->id]) }}">編集</a>
+                <form method="post" action="{{ route('subscriptions.delete', ['id' => $subscription->id]) }}" id="delete_{{ $subscription->id }}">
+                    @csrf
+                    <a href="#" data-id="{{ $subscription->id }}" onclick="deleteSubscription(this)">削除</a>
+                </form>
                     <div class="p-6 text-gray-900">
                         {{ $subscription->name }}<br>
                         料金：{{ $subscription->price }}円<br>
@@ -20,4 +25,13 @@
             </div>
         </div>
     </div>
+{{-- 確認メッセージ --}}
+<script>
+function deleteSubscription(e){
+    'use strict'
+    if(confirm('本当に削除してよろしいですか？')){
+        document.getElementById('delete_' + e.dataset.id).submit()
+    }
+}
+</script>
 </x-app-layout>

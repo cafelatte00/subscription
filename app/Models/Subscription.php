@@ -12,6 +12,7 @@ class Subscription extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'price',
         'frequency',
         'first_payment_day',
         'url',
