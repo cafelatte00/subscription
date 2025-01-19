@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('name', 30);
-            $table->tinyInteger('frequency');
+            $table->string('name', 30)->nullable(false);
+            $table->tinyInteger('frequency')->nullable(false);
             $table->longText('url')->nullable();
             $table->string('memo', 200)->nullable();
             $table->timestamps();

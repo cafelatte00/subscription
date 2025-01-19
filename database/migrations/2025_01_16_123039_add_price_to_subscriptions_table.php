@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->integer('price')->after('name');
+            $table->integer('price')->after('name')->nullable(false);
         });
     }
 

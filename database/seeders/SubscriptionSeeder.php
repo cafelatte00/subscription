@@ -21,6 +21,7 @@ class SubscriptionSeeder extends Seeder
             [
                 'user_id' => 1,
                 'name' => 'レンティオ',
+                'price' => 980,
                 'frequency' => 1,
                 'first_payment_day' => '2025-02-01',
                 'url' => 'https://www.rentio.jp/',
@@ -31,6 +32,7 @@ class SubscriptionSeeder extends Seeder
             [
                 'user_id' => 1,
                 'name' => 'Miro',
+                'price' => 1500,
                 'frequency' => 1,
                 'first_payment_day' => '2025-02-15',
                 'url' => 'https://miro.com/',

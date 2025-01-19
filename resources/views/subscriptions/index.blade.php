@@ -1,4 +1,5 @@
 <x-app-layout>
+    @inject('checkSubscriptionService', 'App\Services\CheckSubscriptionService')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             すべてのサブスク
@@ -13,8 +14,8 @@
                         <div class="p-6 text-gray-900">
                             {{ $subscription->name }}<br>
                             料金：{{ $subscription->price }}円<br>
-                            支払い頻度：{{ $subscription->frequency }}<br>
-                            初回支払日：{{ $subscription->first_payment_day }}<br>
+                            支払い頻度：{{ $checkSubscriptionService::checkFrequency($subscription) }}<br>
+                            初回支払日：{{ substr($subscription->first_payment_day, 0, 10) }}<br>
                             URL：{{ $subscription->url }}<br>
                             メモ：{{ $subscription->memo }}<br>
                         </div>
