@@ -14,7 +14,7 @@ class SubscriptionController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $subscriptions = $user->subscriptions;
+        $subscriptions = Subscription::where('user_id', '=', $user->id)->paginate(3);
 
         return view('subscriptions.index', compact('subscriptions', 'user'));
     }
