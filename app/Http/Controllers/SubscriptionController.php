@@ -7,15 +7,13 @@ use App\Models\User;
 use App\Models\Subscription;
 use App\Services\CheckSubscriptionService;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreSubscriptionRequest;
 
 class SubscriptionController extends Controller
 {
     public function index()
     {
-        // $user = Subscription::find(1)->user;
         $user = Auth::user();
-
-        // 一対多　親→子
         $subscriptions = $user->subscriptions;
 
         return view('subscriptions.index', compact('subscriptions', 'user'));
@@ -26,11 +24,11 @@ class SubscriptionController extends Controller
         return view('subscriptions.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreSubscriptionRequest $request)
     {
         Subscription::create([
             'user_id' =>$request->user_id,
-            'name' => $request->name,
+            'title' => $request->title,
             'price' => $request->price,
             'frequency' => $request->frequency,
             'first_payment_day' => $request->first_payment_day,
@@ -44,7 +42,6 @@ class SubscriptionController extends Controller
     public function show($id)
     {
         $subscription = Subscription::find($id);
-
         $frequency = CheckSubscriptionService::checkFrequency($subscription);
 
         return  view('subscriptions.show', compact('subscription', 'frequency'));
@@ -60,7 +57,7 @@ class SubscriptionController extends Controller
     {
         $subscription = Subscription::find($id);
 
-        $subscription->name = $request->name;
+        $subscription->title = $request->title;
         $subscription->price = $request->price;
         $subscription->frequency = $request->frequency;
         $subscription->first_payment_day = $request->first_payment_day;

@@ -12,7 +12,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <a href="{{ route('subscriptions.show', ['id' => $subscription->id]) }}">
                         <div class="p-6 text-gray-900">
-                            {{ $subscription->name }}<br>
+                            {{ $subscription->title }}<br>
                             料金：{{ $subscription->price }}円<br>
                             支払い頻度：{{ $checkSubscriptionService::checkFrequency($subscription) }}<br>
                             初回支払日：{{ substr($subscription->first_payment_day, 0, 10) }}<br>

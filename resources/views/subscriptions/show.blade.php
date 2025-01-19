@@ -15,7 +15,7 @@
                     <a href="#" data-id="{{ $subscription->id }}" onclick="deleteSubscription(this)">削除</a>
                 </form>
                     <div class="p-6 text-gray-900">
-                        {{ $subscription->name }}<br>
+                        {{ $subscription->title }}<br>
                         料金：{{ $subscription->price }}円<br>
                         支払い頻度：{{ $frequency }}<br>
                         初回支払日：{{ substr($subscription->first_payment_day, 0, 10); }}<br>

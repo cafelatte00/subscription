@@ -20,7 +20,7 @@ class SubscriptionSeeder extends Seeder
         DB::table('subscriptions')->insert([
             [
                 'user_id' => 1,
-                'name' => 'レンティオ',
+                'title' => 'レンティオ',
                 'price' => 980,
                 'frequency' => 1,
                 'first_payment_day' => '2025-02-01',
@@ -31,7 +31,7 @@ class SubscriptionSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'Miro',
+                'title' => 'Miro',
                 'price' => 1500,
                 'frequency' => 1,
                 'first_payment_day' => '2025-02-15',
