@@ -156,11 +156,16 @@ return [
     'attributes' => [
         'password' => 'パスワード',
         'name' => '氏名',
-        'title' => '件名',
+        'title' => 'サブスク名',
         'gender' => '性別',
         'age' => '年齢',
         'contact' => 'お問い合わせ内容',
-        'caution' => '注意事項'
+        'caution' => '注意事項',
+        'price' => '料金',
+        'first_payment_day' => '初回支払日',
+        'frequency' => '支払い頻度',
+        'url' => 'URL',
+        'memo' => 'メモ'
     ],
 
 ];
