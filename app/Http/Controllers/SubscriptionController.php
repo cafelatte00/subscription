@@ -36,43 +36,69 @@ class SubscriptionController extends Controller
             'memo' => $request->memo,
         ]);
 
-        return to_route('subscriptions.index');
+        return to_route('subscriptions.index')->with('status', 'サブスクを登録しました。');
     }
 
     public function show($id)
     {
         $subscription = Subscription::find($id);
-        $frequency = CheckSubscriptionService::checkFrequency($subscription);
+        $user = auth()->user(); //アクセスしているユーザ情報を取得
 
-        return  view('subscriptions.show', compact('subscription', 'frequency'));
+        if($user->can('view',$subscription)){
+            $frequency = CheckSubscriptionService::checkFrequency($subscription);
+            return view('subscriptions.show',compact('subscription', 'frequency'));
+        }else{
+            return '閲覧権限がありません。';
+        }
+
+        // $frequency = CheckSubscriptionService::checkFrequency($subscription);
+        // return  view('subscriptions.show', compact('subscription', 'frequency'));
     }
 
     public function edit($id)
     {
         $subscription = Subscription::find($id);
-        return view('subscriptions.edit', compact('subscription'));
+        $user = auth()->user();
+
+        if($user->can('update',$subscription)){
+            return view('subscriptions.edit', compact('subscription'));
+        }else{
+            return '閲覧権限がありません。';
+        }
     }
 
     public function update(Request $request, $id)
     {
         $subscription = Subscription::find($id);
+        $user = auth()->user();
 
-        $subscription->title = $request->title;
-        $subscription->price = $request->price;
-        $subscription->frequency = $request->frequency;
-        $subscription->first_payment_day = $request->first_payment_day;
-        $subscription->url = $request->url;
-        $subscription->memo = $request->memo;
-        $subscription->save();
+        if($user->can('update',$subscription)){
+            $subscription->title = $request->title;
+            $subscription->price = $request->price;
+            $subscription->frequency = $request->frequency;
+            $subscription->first_payment_day = $request->first_payment_day;
+            $subscription->url = $request->url;
+            $subscription->memo = $request->memo;
+            $subscription->save();
 
-        return to_route('subscriptions.show', ['id' => $id]);
+            return to_route('subscriptions.show', ['id' => $id])->with('status', 'サブスクを更新しました。');
+        }else{
+            abort(403);
+        }
+
+
     }
 
     public function delete(Request $request, $id)
     {
         $subscription = Subscription::find($id);
-        $subscription->delete();
+        $user = auth()->user(); //アクセスしているユーザ情報を取得
 
-        return to_route('subscriptions.index');
+        if($user->can('delete',$subscription)){
+            $subscription->delete();
+            return to_route('subscriptions.index')->with('status', 'サブスクを1件削除しました。');;
+        }else{
+            abort(403);
+        }
     }
 }
