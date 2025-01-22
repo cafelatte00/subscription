@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title', 30)->nullable(false);
             $table->tinyInteger('frequency')->nullable(false);
             $table->longText('url')->nullable();
