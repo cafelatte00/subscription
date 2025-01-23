@@ -14,7 +14,9 @@ class SubscriptionController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $subscriptions = Subscription::where('user_id', '=', $user->id)->paginate(3);
+        // $subscriptions = Subscription::where('user_id', '=', $user->id)->paginate(3);
+        // $subscriptions = Subscription::where('user_id', '=', $user->id)->get();
+        $subscriptions = Subscription::latest()->where('user_id', '=', $user->id)->paginate(5);
 
         return view('subscriptions.index', compact('subscriptions', 'user'));
     }
@@ -39,6 +41,22 @@ class SubscriptionController extends Controller
         return to_route('subscriptions.index')->with('status', 'サブスクを登録しました。');
     }
 
+    // addSubscription
+    public function addSubscription(StoreSubscriptionRequest $request){
+        Subscription::create([
+            'user_id' => $request->user_id,
+            'title' => $request->title,
+            'price' => $request->price,
+            'frequency' => $request->frequency,
+            'first_payment_day' => $request->first_payment_day,
+            'url' => $request->url,
+            'memo' => $request->memo,
+        ]);
+        return response()->json([
+            'status'=>'success',
+        ]);
+    }
+
     public function show($id)
     {
         $subscription = Subscription::find($id);
@@ -50,9 +68,6 @@ class SubscriptionController extends Controller
         }else{
             return '閲覧権限がありません。';
         }
-
-        // $frequency = CheckSubscriptionService::checkFrequency($subscription);
-        // return  view('subscriptions.show', compact('subscription', 'frequency'));
     }
 
     public function edit($id)
