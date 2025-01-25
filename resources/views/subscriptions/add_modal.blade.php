@@ -16,33 +16,33 @@
 
                     <div class="form-group">
                         <label for="title" class="form-label">名前</label>
-                        <input type="text" class="form-control" name="title" id="title" placeholder="サブスク名を入力…" value="{{ old('title') }}">
+                        <input type="text" class="form-control" name="title" id="title" placeholder="サブスク名を入力…">
                     </div>
                     <div class="form-group">
                         <label for="price" class="form-label">料金</label>
-                        <input type="number" class="form-control" name="price" id="price" placeholder="サブスク料金を入力…" value="{{ old('price') }}">
+                        <input type="number" class="form-control" name="price" id="price" placeholder="サブスク料金を入力…">
                     </div>
                     <div class="form-group">
                         <label for="first_payment_day" class="form-label">初回支払日</label>
-                        <input type="date" class="form-control" name="first_payment_day" id="first_payment_day" value="{{ old('first_payment_day') }}">
+                        <input type="date" class="form-control" name="first_payment_day" id="first_payment_day">
                     </div>
                     <div class="form-group">
                         <label for="frequency" class="form-label">支払い頻度</label>
                         <select class="form-control" name="frequency" id="frequency">
-                            <option value="1" {{ old('frequency') === '1' ? 'selected': '' }}>月に1回</option>
-                            <option value="2" {{ old('frequency') === '2' ? 'selected': '' }}>2ヶ月に1回</option>
-                            <option value="3" {{ old('frequency') === '3' ? 'selected': '' }}>3ヶ月に1回</option>
-                            <option value="6" {{ old('frequency') === '6' ? 'selected': '' }}>6ヶ月に1回</option>
-                            <option value="12" {{ old('frequency') === '12' ? 'selected': '' }}>1年に1回</option>
+                            <option value="1">月に1回</option>
+                            <option value="2">2ヶ月に1回</option>
+                            <option value="3">3ヶ月に1回</option>
+                            <option value="6">6ヶ月に1回</option>
+                            <option value="12">1年に1回</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="url" class="form-label">URL</label>
-                        <input type="url" class="form-control" name="url" id="url" placeholder="https://sample..." value="{{ old('url') }}">
+                        <input type="url" class="form-control" name="url" id="url" placeholder="https://sample...">
                     </div>
                     <div class="form-group">
                         <label for="memo" class="form-label">メモ</label>
-                        <textarea class="form-control" name="memo" id="memo" placeholder="メモを入力…">{{ old('memo') }}</textarea>
+                        <textarea class="form-control" name="memo" id="memo" placeholder="メモを入力…"></textarea>
                     </div>
 
                 </div>

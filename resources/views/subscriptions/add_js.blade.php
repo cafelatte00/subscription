@@ -6,9 +6,10 @@
         }
     });
 </script>
-{{-- 動作確認 --}}
+
 <script>
     $(document).ready(function(){
+        // subscription新規保存
         $(document).on('click','.add_subscription', function(e){
             e.preventDefault();
             let user_id = {{ Auth::user()->id }};
@@ -18,12 +19,6 @@
             let first_payment_day = $('#first_payment_day').val();
             let url = $('#url').val();
             let memo = $('#memo').val();
-            // console.log(title);
-            // console.log(price);
-            // console.log(frequency);
-            // console.log(first_payment_day);
-            // console.log(url);
-            // console.log(memo);
 
             $.ajax({
                 url:"{{ route('subscriptions.add.subscription') }}",
@@ -43,7 +38,25 @@
                     });
                 }
             });
-
         })
+
+        // subscription更新
+        $(document).on('click', '.update_subscription_form', function(){
+            let subscription = $(this).data('subscription');
+            // let name = $(this).data('title');
+            // let price = $(this).data('price');
+
+            // $('#up_id').val(id);
+            $('#up_title').val(subscription.title);
+            $('#up_price').val(subscription.price);
+            $("#up_frequency option[value="+subscription.frequency+"]").prop('selected', true);
+            $('#up_first_payment_day').val(subscription.first_payment_day.slice(0,10));
+            $('#up_url').val(subscription.url);
+            $('#up_memo').val(subscription.memo);
+
+            console.log(subscription);
+            console.log(subscription.frequency);
+            console.log($.type(subscription.frequency));
+        });
     });
 </script>

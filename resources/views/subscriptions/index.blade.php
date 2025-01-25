@@ -31,11 +31,28 @@
                             メモ：{{ $subscription->memo }}<br>
                         </div>
                     </a>
+                    <a href=""
+                        class="update_subscription_form"
+                        data-bs-toggle="modal"
+                        data-bs-target="#updateModal"
+                        {{-- data-id="{{ $subscription->id }}"
+                        data-user_id="{{ $subscription->user_id }}"
+                        data-title="{{ $subscription->title }}"
+                        data-price="{{ $subscription->price }}"
+                        data-frequency="{{ $subscription->frequency }}"
+                        data-first_payment_day="{{ $subscription->first_payment_day }}"
+                        data-url="{{ $subscription->url }}"
+                        data-memo="{{ $subscription->memo }}" --}}
+                        data-subscription="{{ $subscription }}"
+                    >
+                        更新
+                    </a>
                 </div>
             @endforeach
             {!! $subscriptions->links() !!}<br>
         </div>
     </div>
     @include('subscriptions.add_modal')
+    @include('subscriptions.update_modal')
     @include('subscriptions.add_js')
 </x-app-layout>
