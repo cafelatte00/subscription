@@ -14,8 +14,6 @@ class SubscriptionController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // $subscriptions = Subscription::where('user_id', '=', $user->id)->paginate(3);
-        // $subscriptions = Subscription::where('user_id', '=', $user->id)->get();
         $subscriptions = Subscription::latest()->where('user_id', '=', $user->id)->paginate(5);
 
         return view('subscriptions.index', compact('subscriptions', 'user'));
@@ -26,23 +24,24 @@ class SubscriptionController extends Controller
         return view('subscriptions.create');
     }
 
-    public function store(StoreSubscriptionRequest $request)
-    {
-        Subscription::create([
-            'user_id' =>$request->user_id,
-            'title' => $request->title,
-            'price' => $request->price,
-            'frequency' => $request->frequency,
-            'first_payment_day' => $request->first_payment_day,
-            'url' => $request->url,
-            'memo' => $request->memo,
-        ]);
+    // public function store(StoreSubscriptionRequest $request)
+    // {
+    //     Subscription::create([
+    //         'user_id' =>$request->user_id,
+    //         'title' => $request->title,
+    //         'price' => $request->price,
+    //         'frequency' => $request->frequency,
+    //         'first_payment_day' => $request->first_payment_day,
+    //         'url' => $request->url,
+    //         'memo' => $request->memo,
+    //     ]);
 
-        return to_route('subscriptions.index')->with('status', 'サブスクを登録しました。');
-    }
+    //     return to_route('subscriptions.index')->with('status', 'サブスクを登録しました。');
+    // }
 
-    // addSubscription
+    // モーダルFormからの新規保存
     public function addSubscription(StoreSubscriptionRequest $request){
+        $user = Auth::user();
         Subscription::create([
             'user_id' => $request->user_id,
             'title' => $request->title,
@@ -52,9 +51,10 @@ class SubscriptionController extends Controller
             'url' => $request->url,
             'memo' => $request->memo,
         ]);
-        return response()->json([
-            'status'=>'success',
-        ]);
+        $subscription = Subscription::where('user_id','=',$user->id)->orderByDesc('id')
+        ->first();
+        $title = $subscription->title;
+        return response()->json(['message'=>'うまくいったよ']);
     }
 
     public function show($id)
@@ -100,9 +100,33 @@ class SubscriptionController extends Controller
         }else{
             abort(403);
         }
-
-
     }
+
+    // モーダルFormからのデータ更新
+    // public function updateModal(StoreSubscriptionRequest $request){
+    public function updateModal(Request $request){
+        // Subscription::create([
+        //     'user_id' => $request->user_id,
+        //     'title' => $request->title,
+        //     'price' => $request->price,
+        //     'frequency' => $request->frequency,
+        //     'first_payment_day' => $request->first_payment_day,
+        //     'url' => $request->url,
+        //     'memo' => $request->memo,
+        // ]);
+        // return response()->json([
+        //     'status'=>'success',
+        // ]);
+
+        Subscription::where('id', $request->id)->update([
+            'title'=>$request->title,
+            'price'=>$request->price
+        ]);
+        return response()->json([
+            'status'=>'success'
+        ]);
+    }
+
 
     public function delete(Request $request, $id)
     {
