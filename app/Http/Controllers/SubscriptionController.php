@@ -51,10 +51,10 @@ class SubscriptionController extends Controller
             'url' => $request->url,
             'memo' => $request->memo,
         ]);
-        $subscription = Subscription::where('user_id','=',$user->id)->orderByDesc('id')
+        $new_subscription = Subscription::where('user_id','=',$user->id)->orderByDesc('id')
         ->first();
-        $title = $subscription->title;
-        return response()->json(['message'=>'うまくいったよ']);
+        $title = $new_subscription->title;
+        return response()->json(['new_subscription'=>$new_subscription]);
     }
 
     public function show($id)
