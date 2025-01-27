@@ -8,15 +8,16 @@
 
     <div class="py-12">
 
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
+
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- <a href="{{ route('subscriptions.create') }}" class="btn btn-info my-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="las la-plus"></i> 新規登録</a> --}}
             <a href="" class="btn btn-info my-3" data-bs-toggle="modal" data-bs-target="#addModal"><i class="las la-plus"></i> 新規登録</a>
+            @if (session('status'))
+                <div id="flash-message" class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div id="index-flame">
             @foreach($subscriptions as $subscription)
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -39,4 +40,5 @@
     </div>
     @include('subscriptions.add_modal')
     @include('subscriptions.add_js')
+    @include('common.flash_message_fadeout_js')
 </x-app-layout>

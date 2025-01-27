@@ -135,7 +135,7 @@ class SubscriptionController extends Controller
 
         if($user->can('delete',$subscription)){
             $subscription->delete();
-            return to_route('subscriptions.index')->with('status', 'サブスクを1件削除しました。');;
+            return to_route('subscriptions.index')->with('status', 'サブスクを1件削除しました。');
         }else{
             abort(403);
         }
