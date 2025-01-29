@@ -54,7 +54,16 @@ class SubscriptionController extends Controller
         $new_subscription = Subscription::where('user_id','=',$user->id)->orderByDesc('id')
         ->first();
         $title = $new_subscription->title;
-        return response()->json(['new_subscription'=>$new_subscription]);
+
+         // フラッシュメッセージをセッションに追加 session()->flash('キー', 'メッセージ')
+        // session()->flash('status', 'サブスクリプションが正常に追加されました！');
+
+        // JSONレスポンスを返す
+        return response()->json([
+            // 'status' => 'success',
+            'new_subscription'=>$new_subscription,
+            // 'message' => session('status'),       // フラッシュメッセージを返す
+        ]);
     }
 
     public function show($id)

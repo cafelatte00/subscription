@@ -41,12 +41,65 @@
             }).done(function(res){
                 $('#addModal').modal('hide');
                 $('#addSubscriptionForm')[0].reset();
+
+                // 新規サブスクリプションを表示
                 $('#index-flame').prepend('<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg"><a href="'+ location.href + '/' + res.new_subscription.id +'"'+'><div class="p-6 text-gray-900">'
                     +res.new_subscription.title+'<br>'+res.new_subscription.price+'<br>'+res.new_subscription.frequency+'<br>'+res.new_subscription.first_payment_day+'<br>'+res.new_subscription.url+'<br>'+res.new_subscription.memo+
                     '</div></a></div>');
+
+                    // ajax用のフラッシュメッセージ
+                    showFlashMessage('成功しました。','success');
+
+                // $('#ajax-flash-message').prepend('成功しました。');
+                // $(document).ready(function(){
+                //     let ajaxFlashMessage = $('#ajax-flash-message');
+                //     if(ajaxFlashMessage.length){
+                //         setTimeout(function(){
+                //             ajaxFlashMessage.fadeOut();
+                //         }, 2000);
+                //     }
+                // });
+
+
             }).fail(function(){
-                alert('通信の失敗をしました');
+                showFlashMessage('通信の失敗しました','error');
             });
-        })
+        });
+
+        // Ajax用のフラッシュメッセージ表示関数
+        function showFlashMessage(message, type){
+            let flashMessage = `<div class="flash-message alert alert-${type}">${message}</div>`;
+            $('#ajax-flash-message').append(flashMessage);
+
+            // メッセージが表示された後に非表示にする処理
+            setTimeout(function(){
+                $('.flash-message').fadeOut(function(){
+                    $(this).remove();
+                });
+            }, 4000);
+        }
     });
 </script>
+
+<style>
+    /* フラッシュメッセージのスタイル */
+    .flash-message {
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .alert-success {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .alert-error {
+        background-color: #f44336;
+        color: white;
+    }
+</style>
