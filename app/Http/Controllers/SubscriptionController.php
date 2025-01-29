@@ -14,7 +14,7 @@ class SubscriptionController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $subscriptions = Subscription::where('user_id', '=', $user->id)->paginate(3);
+        $subscriptions = Subscription::latest()->where('user_id', '=', $user->id)->paginate(5);
 
         return view('subscriptions.index', compact('subscriptions', 'user'));
     }
@@ -24,10 +24,26 @@ class SubscriptionController extends Controller
         return view('subscriptions.create');
     }
 
-    public function store(StoreSubscriptionRequest $request)
-    {
+    // public function store(StoreSubscriptionRequest $request)
+    // {
+    //     Subscription::create([
+    //         'user_id' =>$request->user_id,
+    //         'title' => $request->title,
+    //         'price' => $request->price,
+    //         'frequency' => $request->frequency,
+    //         'first_payment_day' => $request->first_payment_day,
+    //         'url' => $request->url,
+    //         'memo' => $request->memo,
+    //     ]);
+
+    //     return to_route('subscriptions.index')->with('status', 'サブスクを登録しました。');
+    // }
+
+    // モーダルFormからの新規保存
+    public function addSubscription(StoreSubscriptionRequest $request){
+        $user = Auth::user();
         Subscription::create([
-            'user_id' =>$request->user_id,
+            'user_id' => $request->user_id,
             'title' => $request->title,
             'price' => $request->price,
             'frequency' => $request->frequency,
@@ -35,8 +51,19 @@ class SubscriptionController extends Controller
             'url' => $request->url,
             'memo' => $request->memo,
         ]);
+        $new_subscription = Subscription::where('user_id','=',$user->id)->orderByDesc('id')
+        ->first();
+        $title = $new_subscription->title;
 
-        return to_route('subscriptions.index')->with('status', 'サブスクを登録しました。');
+         // フラッシュメッセージをセッションに追加 session()->flash('キー', 'メッセージ')
+        // session()->flash('status', 'サブスクリプションが正常に追加されました！');
+
+        // JSONレスポンスを返す
+        return response()->json([
+            // 'status' => 'success',
+            'new_subscription'=>$new_subscription,
+            // 'message' => session('status'),       // フラッシュメッセージを返す
+        ]);
     }
 
     public function show($id)
@@ -50,9 +77,6 @@ class SubscriptionController extends Controller
         }else{
             return '閲覧権限がありません。';
         }
-
-        // $frequency = CheckSubscriptionService::checkFrequency($subscription);
-        // return  view('subscriptions.show', compact('subscription', 'frequency'));
     }
 
     public function edit($id)
@@ -85,9 +109,33 @@ class SubscriptionController extends Controller
         }else{
             abort(403);
         }
-
-
     }
+
+    // モーダルFormからのデータ更新
+    // public function updateModal(StoreSubscriptionRequest $request){
+    public function updateModal(Request $request){
+        // Subscription::create([
+        //     'user_id' => $request->user_id,
+        //     'title' => $request->title,
+        //     'price' => $request->price,
+        //     'frequency' => $request->frequency,
+        //     'first_payment_day' => $request->first_payment_day,
+        //     'url' => $request->url,
+        //     'memo' => $request->memo,
+        // ]);
+        // return response()->json([
+        //     'status'=>'success',
+        // ]);
+
+        Subscription::where('id', $request->id)->update([
+            'title'=>$request->title,
+            'price'=>$request->price
+        ]);
+        return response()->json([
+            'status'=>'success'
+        ]);
+    }
+
 
     public function delete(Request $request, $id)
     {
@@ -96,7 +144,7 @@ class SubscriptionController extends Controller
 
         if($user->can('delete',$subscription)){
             $subscription->delete();
-            return to_route('subscriptions.index')->with('status', 'サブスクを1件削除しました。');;
+            return to_route('subscriptions.index')->with('status', 'サブスクを1件削除しました。');
         }else{
             abort(403);
         }
