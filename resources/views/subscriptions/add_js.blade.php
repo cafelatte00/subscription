@@ -49,18 +49,6 @@
 
                     // ajax用のフラッシュメッセージ
                     showFlashMessage('成功しました。','success');
-
-                // $('#ajax-flash-message').prepend('成功しました。');
-                // $(document).ready(function(){
-                //     let ajaxFlashMessage = $('#ajax-flash-message');
-                //     if(ajaxFlashMessage.length){
-                //         setTimeout(function(){
-                //             ajaxFlashMessage.fadeOut();
-                //         }, 2000);
-                //     }
-                // });
-
-
             }).fail(function(){
                 showFlashMessage('通信の失敗しました','error');
             });
@@ -76,7 +64,7 @@
                 $('.flash-message').fadeOut(function(){
                     $(this).remove();
                 });
-            }, 4000);
+            }, 3000);
         }
     });
 </script>
