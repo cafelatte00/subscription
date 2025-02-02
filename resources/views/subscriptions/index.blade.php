@@ -19,7 +19,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <div id="ajax-flash-message"></div>
+            {{-- <div id="ajax-flash-message"></div> --}}
 
 
             <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">

@@ -36,8 +36,20 @@
 
                     // ajax用のフラッシュメッセージ
                     showFlashMessage('サブスクを登録しました。','success');
-            }).fail(function(){
-                showFlashMessage('通信の失敗しました','error');
+            }).fail(function(error){
+                // console.log(error.responseJSON.message);
+                // console.log(error.responseJSON,function(index, value){
+                    // ('.errMsgContainer').append('<span class="text-danger">'+value+'</span>');
+                    // let flashMessage2 = `<div class="text-danger">${error.responseJSON.message}</div>`;
+                $.each(error.responseJSON.errors, function(index, value){
+                    console.log(index);
+                    console.log(value);
+
+                    $('.errMsgContainer').append('<span class="text-danger">'+value+'</span><br>');
+                });
+
+
+                // showFlashMessage(error.responseJSON.message,'error');
             });
         });
 

@@ -10,14 +10,15 @@
                 </div>
                 <div class="modal-body">
 
-                    <div class="errMsgContainer mb-3">
-
-                    </div>
+                    <div class="errMsgContainer mb-3"></div>
+                    <div id="ajax-flash-message"></div>
 
                     <div class="form-group">
                         <label for="title" class="form-label">名前</label>
                         <input type="text" class="form-control" name="title" id="title" placeholder="サブスク名を入力…">
                     </div>
+                    <x-input-error :messages="$errors->get('title')" class="mt-2" />
+
                     <div class="form-group">
                         <label for="price" class="form-label">料金</label>
                         <input type="number" class="form-control" name="price" id="price" placeholder="サブスク料金を入力…">
@@ -39,7 +40,6 @@
                     <div class="form-group">
                         <label for="url" class="form-label">URL</label>
                         <input type="url" class="form-control" name="url" id="url" placeholder="https://sample...">
-                    </div>
                     <div class="form-group">
                         <label for="memo" class="form-label">メモ</label>
                         <textarea class="form-control" name="memo" id="memo" placeholder="メモを入力…"></textarea>
