@@ -16,7 +16,7 @@
         if(flashMessage.length){
             setTimeout(function(){
                 flashMessage.fadeOut();
-            }, 4000);
+            }, 3000);
         }
     });
 

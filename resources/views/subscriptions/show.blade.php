@@ -23,7 +23,7 @@
                 </form>
                     <div class="p-6 text-gray-900">
                         料金：{{ $subscription->price }}円<br>
-                        支払い頻度：{{ $frequency }}<br>
+                        支払い頻度：{{ $frequency }}に1回<br>
                         初回支払日：{{ substr($subscription->first_payment_day, 0, 10); }}<br>
                         URL：{{ $subscription->url }}<br>
                         メモ：{{ $subscription->memo }}<br>
