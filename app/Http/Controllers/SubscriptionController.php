@@ -61,7 +61,7 @@ class SubscriptionController extends Controller
         // JSONレスポンスを返す
         return response()->json([
             // 'status' => 'success',
-            'new_subscription'=>$new_subscription,
+            'new_subscription'=>$new_subscription,   // フラッシュメッセージを返す
             // 'message' => session('status'),       // フラッシュメッセージを返す
         ]);
     }

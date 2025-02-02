@@ -24,38 +24,18 @@
                 url:"{{ route('subscriptions.add.subscription') }}",
                 method: 'post',
                 data:{user_id:user_id,title:title,price:price,frequency:frequency,first_payment_day:first_payment_day,url:url,memo:memo},
-                // success:function(res){
-                //     if(res.status=='success'){
-                //         $('#addModal').modal('hide');
-                //         $('#addSubscriptionForm')[0].reset();
-                //         // $('#subscriptions_index').load(location.href+' #subscriptions_index');
-                //         console.log(res.status);
-                //     }
-                // },error:function(err){
-                //     let error = err.responseJSON;
-                //     $.each(error.errors,function(index, value){
-                //         $('.errMsgContainer').append('<span class="text-danger">'+value+'</span>'+'<br>');
-                //     });
-                // }
                 dataType: "json",
             }).done(function(res){
                 $('#addModal').modal('hide');
                 $('#addSubscriptionForm')[0].reset();
 
-                // 新規サブスクリプションを表示
-                // $('#index-flame').prepend('<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg"><a href="'+ location.href + '/' + res.new_subscription.id +'"'+'><div class="p-6 text-gray-900">'
-                //     +res.new_subscription.title+'<br>'+res.new_subscription.price+'<br>'+res.new_subscription.frequency+'<br>'+res.new_subscription.first_payment_day+'<br>'+res.new_subscription.url+'<br>'+res.new_subscription.memo+
-                //     '</div></a></div>');
-
-                $('#index-flame').prepend('<div class="xl:w-1/3 md:w-1/2 p-4"><a href="'+ location.href + '/' + res.new_subscription.id +'"'+'><div class="border border-gray-200 p-6 rounded-lg"><div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-pink-100 text-pink-500 mb-4"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><div></div><h2 class="text-lg text-gray-900 font-medium title-font mb-2">'
+                // 新規登録したサブスクをindexに追加
+                $('#index-flame').prepend('<div class="xl:w-1/3 md:w-1/2 p-4"><a href="'+ location.href + '/' + res.new_subscription.id +'"'+'><div class="bg-white p-6 rounded-lg"><div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-pink-100 text-pink-500 mb-4"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><div></div><h2 class="text-lg text-gray-900 font-medium title-font mb-2">'
                     +res.new_subscription.title+'</h2><p class="leading-relaxed text-base">'+res.new_subscription.price+'円/'+res.new_subscription.frequency+'</p><p class="leading-relaxed text-base">次回支払日　2025年○月○日</p>'+
                     '</div></a></div>');
 
-
-
-
                     // ajax用のフラッシュメッセージ
-                    showFlashMessage('成功しました。','success');
+                    showFlashMessage('サブスクを登録しました。','success');
             }).fail(function(){
                 showFlashMessage('通信の失敗しました','error');
             });
