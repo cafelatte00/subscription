@@ -37,11 +37,26 @@
                     // ajax用のフラッシュメッセージ
                     showFlashMessage('サブスクを登録しました。','success');
             }).fail(function(error){
+                // 以前のバリデーションエラーがあれば削除
+                $('.errMsgContainer').empty();
                 // バリデーションエラーをモーダルに表示
                 $.each(error.responseJSON.errors, function(index, value){
                     $('.errMsgContainer').append('<span class="text-pink-600">'+value+'</span><br>');
                 });
             });
+
+            // クローズボタンがクリックされたら、バリデーションエラーを削除
+            $('#closeButton').click(function(){
+                $('.errMsgContainer').empty();
+            });
+
+            // キャンセルボタンがクリックされたら、バリデーションエラーを削除
+            $('#cancelButton').click(function(){
+                $('.errMsgContainer').empty();
+            });
+
+            //
+
         });
 
         // Ajax用のフラッシュメッセージ表示関数

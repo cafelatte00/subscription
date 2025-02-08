@@ -6,11 +6,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addModalLabel">サブスク登録</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button id="closeButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <div class="errMsgContainer mb-3"></div>
+                    <div class="errMsgContainer mb-3"></div>{{-- バリデーションエラー表示 --}}
                     <div id="ajax-flash-message"></div>
 
                     <div class="form-group my-3">
@@ -48,8 +47,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400" >キャンセル</button>
-
+                    <button id="cancelButton" type="button" class="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400" data-bs-dismiss="modal">キャンセル</button>
                     <button type="button" class="mt-16 my-5 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg add_subscription">登録する</button>
 
                 </div>
