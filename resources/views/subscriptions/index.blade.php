@@ -7,7 +7,7 @@
 
             {{-- フラッシュメッセージ --}}
             @if (session('status'))
-                <div id="flash-message" class="alert alert-success">
+                <div id="flash-message" class="alert alert-info">
                     {{ session('status') }}
                 </div>
             @endif

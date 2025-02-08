@@ -87,8 +87,8 @@
     }
 
     .alert-success {
-        background-color: #4CAF50;
-        color: white;
+        background-color: #CFF4FC;
+        color: gray;
     }
 
     .alert-error {

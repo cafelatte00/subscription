@@ -1,13 +1,14 @@
 <x-app-layout>
     <div class="py-12">
 
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            {{-- フラッシュメッセージ --}}
+            @if (session('status'))
+                <div id="flash-message" class="alert alert-info">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="border-pink overflow-hidden pink-shadow sm:rounded-lg p-3 lg:p-14">
                 {{-- クローズボタン --}}
                 <div class="flex justify-end pb-4">
@@ -58,5 +59,5 @@
         }
     }
 </script>
-
+@include('common.flash_message_fadeout_js')
 </x-app-layout>
