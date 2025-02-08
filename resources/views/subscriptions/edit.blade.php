@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12 app-background-image">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -56,7 +56,7 @@
                                         </div>
                                         <input type='hidden' value="{{ Auth::user()->id }}" name="user_id">
                                         <div class="p-2 w-full">
-                                            <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
+                                            <button class="flex mx-auto text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">更新する</button>
                                         </div>
                                     </div>
                                 </div>
