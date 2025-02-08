@@ -12,7 +12,7 @@
                 {{-- クローズボタン --}}
                 <div class="flex justify-end pb-4">
                     <a href="{{ route('subscriptions.index') }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-2 lg:h-6 w-2 lg:w-6 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 hover:text-gray-600">
                             <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
                         </svg>
                     </a>
@@ -25,9 +25,6 @@
                     <div class="flex">
                         {{-- 編集ボタン --}}
                         <a href="{{ route('subscriptions.edit', ['id' => $subscription->id]) }}">
-                            {{-- <button type="button" class="rounded-full border border-gray-500 bg-gray-500 p-3 text-center text-base font-medium text-white shadow-sm transition-all hover:border-gray-700 hover:bg-gray-700 focus:ring focus:ring-gray-200 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300">
-                                <i class="las la-edit h-6 w-6"></i>
-                            </button> --}}
                             <button type="button" class="rounded-full border border-pink-500 bg-pink-100 p-3 text-center text-base font-medium shadow-sm transition-all hover:border-pink-700 hover:bg-pink-200 focus:ring focus:ring-gray-200 disabled:cursor-not-allowed disabled:border-pink-300 disabled:bg-pink-300">
                                 <i class="las la-edit h-6 w-6"></i>
                             </button>

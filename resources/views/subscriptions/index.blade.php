@@ -1,13 +1,8 @@
 <x-app-layout>
     @inject('checkSubscriptionService', 'App\Services\CheckSubscriptionService')
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            すべてのサブスク
-        </h2>
-    </x-slot>
     {{-- ここからテイルブロック --}}
     <section class="text-gray-600 body-font app-background-image">
-        <div class="container px-5 py-14 mx-auto">
+        <div class="container px-5 pt-10 mx-auto">
 
 
             {{-- フラッシュメッセージ --}}

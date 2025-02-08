@@ -9,6 +9,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    {{-- クローズボタン --}}
+                    <div class="flex justify-end pb-4">
+                        <a href="{{ route('subscriptions.index') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 hover:text-gray-600">
+                                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                            </svg>
+                        </a>
+                    </div>
                     <section class="text-gray-600 body-font relative">
                         <form method="post" action="{{ route('subscriptions.update', ['id' => $subscription->id]) }}">
                             @csrf
@@ -55,8 +63,11 @@
                                             </div>
                                         </div>
                                         <input type='hidden' value="{{ Auth::user()->id }}" name="user_id">
-                                        <div class="p-2 w-full">
-                                            <button class="flex mx-auto text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">更新する</button>
+                                        <div class="p-2 w-full flex justify-end">
+                                            <a href="{{ route('subscriptions.index') }}"><button type="button" class="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400">キャンセル</button></a>
+                                            <button class="ml-2 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">
+                                                更新する
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
