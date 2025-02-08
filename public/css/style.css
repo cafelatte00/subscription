@@ -18,3 +18,12 @@ a:hover {
 .bg-peach-light{
   background-color: #F0C6C1;
 }
+
+#parent-box {
+  position: relative;
+}
+#currency{
+  position: absolute;
+  bottom:4px;
+  left: 0;
+}

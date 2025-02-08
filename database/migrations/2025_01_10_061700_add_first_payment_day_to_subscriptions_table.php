@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dateTime('first_payment_day', $precision = 0)->after('frequency');
+            $table->dateTime('first_payment_day', $precision = 0)->after('frequency')->nullable(false);
         });
     }
 

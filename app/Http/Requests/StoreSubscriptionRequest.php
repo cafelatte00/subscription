@@ -27,7 +27,7 @@ class StoreSubscriptionRequest extends FormRequest
             'title' => ['required', 'string', 'max:30'],
             'price' => ['required', 'numeric', 'min:1' ],
             'frequency' => ['required', 'numeric', 'min:1', 'max:12'],
-            'first_payment_day' => ['date'],
+            'first_payment_day' => ['required','date'],
             'url' => ['url', 'nullable'],
             'memo' => ['string','max:200', 'nullable']
         ];
