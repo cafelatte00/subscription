@@ -3,10 +3,7 @@ a:hover {
 }
 
 .app-background-image{
-  /* background-image: linear-gradient(to right top, #ff7e9c, #ff9cab, #ffb9be, #ffd4d4, #fdefee); */
-  /* background-image: linear-gradient(-225deg, #FFE29F 0%, #FFA99F 48%, #FF719A 100%); */
   background-image: linear-gradient(90deg,#FF719A, #FFA99F);
-
 }
 
 .pink-shadow{
@@ -22,8 +19,30 @@ a:hover {
 #parent-box {
   position: relative;
 }
+
 #currency{
   position: absolute;
   bottom:4px;
   left: 0;
+}
+
+/* フラッシュメッセージのスタイル */
+.flash-message {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #CFF4FC;
+  color: gray;
+}
+
+.alert-error {
+  background-color: #f44336;
+  color: white;
 }

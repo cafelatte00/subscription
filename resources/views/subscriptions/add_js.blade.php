@@ -31,7 +31,7 @@
 
                 // 新規登録したサブスクをindexに追加
                 $('#index-flame').prepend('<div class="p-4"><a href="'+ location.href + '/' + res.new_subscription.id +'"'+'><div class="bg-white p-6 rounded-lg"><div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-pink-100 text-pink-500 mb-4"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><div></div><h2 class="text-lg text-gray-900 font-medium title-font mb-2">'
-                    +res.new_subscription.title+'</h2><p class="leading-relaxed text-base">'+res.new_subscription.price+'円/'+res.new_subscription.frequency+'</p><p class="leading-relaxed text-base">次回支払日　2025年○月○日</p>'+
+                    +res.new_subscription.title+'</h2><p class="leading-relaxed text-base">'+res.new_subscription.price+'円/'+ showFrequencyWithSuffix(res.new_subscription.frequency) + '</p><p class="leading-relaxed text-base">次回支払日　2025年○月○日</p>'+
                     '</div></a></div>');
 
                     // ajax用のフラッシュメッセージ
@@ -55,8 +55,6 @@
                 $('.errMsgContainer').empty();
             });
 
-            //
-
         });
 
         // Ajax用のフラッシュメッセージ表示関数
@@ -71,28 +69,18 @@
                 });
             }, 3000);
         }
+
+        // 新規作成時、支払い頻度に末尾の単位をつけて表示
+        function showFrequencyWithSuffix(frequency){
+            let frequency_with_suffix = "";
+            if(frequency === 1 || frequency === 2 || frequency === 3 || frequency === 6 ){
+                frequency_with_suffix = frequency + "ヶ月";
+            }else{
+                frequency_with_suffix = "1年";
+            }
+            return frequency_with_suffix;
+        }
+
+
     });
 </script>
-
-<style>
-    /* フラッシュメッセージのスタイル */
-    .flash-message {
-        padding: 10px 15px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        font-size: 16px;
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-    }
-
-    .alert-success {
-        background-color: #CFF4FC;
-        color: gray;
-    }
-
-    .alert-error {
-        background-color: #f44336;
-        color: white;
-    }
-</style>
