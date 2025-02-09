@@ -81,6 +81,5 @@
             return frequency_with_suffix;
         }
 
-
     });
 </script>
