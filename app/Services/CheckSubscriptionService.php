@@ -14,4 +14,19 @@ class CheckSubscriptionService
 
         return $frequency;
     }
+
+    // public static function calcNextPaymentDay($today, $firstPaymentDay, $nextPaymentDay, $numberOfPayments)
+    // {
+
+    //     return $nextPaymentDay;
+    // }
+
+    public static function calcNextPaymentDay($today, $firstPaymentDay, $nextPaymentDay)
+    {
+        $nextPaymentDay = $firstPaymentDay->copy()->addMonth();
+
+
+
+        return $nextPaymentDay;
+    }
 }

@@ -42,7 +42,10 @@
                 <div class=" text-gray-900">
                     料金：{{ $subscription->price }}円<br>
                     支払い頻度：{{ $frequency }}に1回<br>
-                    初回支払日：{{ substr($subscription->first_payment_day, 0, 10); }}<br>
+                    初回支払日：{{ \Carbon\Carbon::parse($subscription->first_payment_day)->format('Y/m/d') }}<br>
+                    {{-- 次回支払日：{{ is_null($subscription->next_payment_day) ? substr($subscription->first_payment_day, 0, 10) : substr($subscription->next_payment_day, 0, 10) }}<br> --}}
+                    次回支払日：{{  \Carbon\Carbon::parse($subscription->next_payment_day)->format('Y/m/d') }}<br>
+                    支払回数：{{ $subscription->number_of_payments }}回<br>
                     URL：{{ $subscription->url }}<br>
                     メモ：{{ $subscription->memo }}<br>
                 </div>
