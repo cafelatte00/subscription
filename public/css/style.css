@@ -4,6 +4,8 @@ a:hover {
 
 .app-background-image{
   background-image: linear-gradient(90deg,#FF719A, #FFA99F);
+  min-height: 100vh; /* 画面全体の高さを確保 */
+  padding-bottom: 20px; /* 画面下の余白 */
 }
 
 .pink-shadow{

@@ -20,7 +20,7 @@
 
                     <div class="form-group  my-3">
                         <label for="price" class="form-label">料金<span class="rounded-full bg-pink-50 px-2 py-1 text-xs font-semibold text-pink-600"> 必須 </span></label>
-                        <input type="number" class="form-control" name="price" id="price" placeholder="サブスク料金を入力…">
+                        <input type="number" class="form-control" name="price" id="price" min="0" placeholder="サブスク料金を入力…">
                     </div>
                     <div class="form-group my-3">
                         <label for="first_payment_day" class="form-label">初回支払日<span class="rounded-full bg-pink-50 px-2 py-1 text-xs font-semibold text-pink-600"> 必須 </span></label>

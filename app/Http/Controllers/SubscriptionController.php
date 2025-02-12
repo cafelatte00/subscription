@@ -20,27 +20,7 @@ class SubscriptionController extends Controller
         return view('subscriptions.index', compact('subscriptions', 'user'));
     }
 
-    public function create()
-    {
-        return view('subscriptions.create');
-    }
-
-    // public function store(StoreSubscriptionRequest $request)
-    // {
-    //     Subscription::create([
-    //         'user_id' =>$request->user_id,
-    //         'title' => $request->title,
-    //         'price' => $request->price,
-    //         'frequency' => $request->frequency,
-    //         'first_payment_day' => $request->first_payment_day,
-    //         'url' => $request->url,
-    //         'memo' => $request->memo,
-    //     ]);
-
-    //     return to_route('subscriptions.index')->with('status', 'サブスクを登録しました。');
-    // }
-
-    // モーダルFormからの新規保存
+    // モーダルFormからの新規保存 Ajax
     public function addSubscription(StoreSubscriptionRequest $request){
         $user = Auth::user();
         $today = Carbon::now();   // 現在の日時を取得
@@ -49,28 +29,28 @@ class SubscriptionController extends Controller
         $numberOfPayments = 0;  // 支払い回数
         $frequency = $request->frequency;
 
-
         // 初回支払日が本日・未来・過去かによって代入値をかえる
         if($today->isToday($firstPaymentDay)){                    // 初回支払日が本日
-            // $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);
-            $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow();
+            $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);
+            // $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow();
             $numberOfPayments += 1;
         }
         if( $today < $firstPaymentDay){                      // 初回支払日が未来
             $nextPaymentDay = $firstPaymentDay;
         }
         if( $today > $firstPaymentDay){                      // 初回支払日が過去
-            $calcPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow();   // （仮に１ヶ月ごとの課金だと仮定し）計算用の課金日
+            $calcPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);   // （仮に１ヶ月ごとの課金だと仮定し）計算用の課金日
 
             while($today >= $calcPaymentDay){
                 $numberOfPayments += 1;
                 $nextPaymentDay = $calcPaymentDay;
-                $calcPaymentDay = $calcPaymentDay->copy()->addMonthNoOverflow();
+                $calcPaymentDay = $calcPaymentDay->copy()->addMonthNoOverflow($frequency);
             }
             if($nextPaymentDay <= $today){
-                $nextPaymentDay->addMonthNoOverflow();
+                $nextPaymentDay->addMonthNoOverflow($frequency);
             }
         }
+
         Subscription::create([
             'user_id' => $request->user_id,
             'title' => $request->title,
@@ -136,32 +116,6 @@ class SubscriptionController extends Controller
             abort(403);
         }
     }
-
-    // モーダルFormからのデータ更新
-    // public function updateModal(StoreSubscriptionRequest $request){
-    public function updateModal(Request $request){
-        // Subscription::create([
-        //     'user_id' => $request->user_id,
-        //     'title' => $request->title,
-        //     'price' => $request->price,
-        //     'frequency' => $request->frequency,
-        //     'first_payment_day' => $request->first_payment_day,
-        //     'url' => $request->url,
-        //     'memo' => $request->memo,
-        // ]);
-        // return response()->json([
-        //     'status'=>'success',
-        // ]);
-
-        Subscription::where('id', $request->id)->update([
-            'title'=>$request->title,
-            'price'=>$request->price
-        ]);
-        return response()->json([
-            'status'=>'success'
-        ]);
-    }
-
 
     public function delete(Request $request, $id)
     {
