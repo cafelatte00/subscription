@@ -22,6 +22,8 @@ class SubscriptionFactory extends Factory
             'price' => $this->faker->numberBetween(500, 3000),
             'frequency' => $this->faker->numberBetween(1,3),
             'first_payment_day' => '2025-02-01',
+            'first_payment_day' => '2025-03-01',
+            'number_of_payments' => 1,
             'url' => $this->faker->url(),
             'memo' => $this->faker->realText(100),
         ];

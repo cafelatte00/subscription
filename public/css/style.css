@@ -1,0 +1,50 @@
+a:hover {
+  color: inherit;
+}
+
+.app-background-image{
+  background-image: linear-gradient(90deg,#FF719A, #FFA99F);
+  min-height: 100vh; /* 画面全体の高さを確保 */
+  padding-bottom: 20px; /* 画面下の余白 */
+}
+
+.pink-shadow{
+  color: #333333;
+  border-radius: 3px;
+  box-shadow: 0px 5px 30px 0px rgba(224, 144, 196, 0.35);
+}
+
+.bg-peach-light{
+  background-color: #F0C6C1;
+}
+
+#parent-box {
+  position: relative;
+}
+
+#currency{
+  position: absolute;
+  bottom:4px;
+  left: 0;
+}
+
+/* フラッシュメッセージのスタイル */
+.flash-message {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #CFF4FC;
+  color: gray;
+}
+
+.alert-error {
+  background-color: #f44336;
+  color: white;
+}

@@ -163,6 +163,8 @@ return [
         'caution' => '注意事項',
         'price' => '料金',
         'first_payment_day' => '初回支払日',
+        'next_payment_day' => '次回支払日',
+        'number_of_payments' => '支払回数',
         'frequency' => '支払い頻度',
         'url' => 'URL',
         'memo' => 'メモ'
