@@ -32,7 +32,6 @@ class SubscriptionController extends Controller
         // 初回支払日が本日・未来・過去かによって代入値をかえる
         if($today->isToday($firstPaymentDay)){                    // 初回支払日が本日
             $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);
-            // $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow();
             $numberOfPayments += 1;
         }
         if( $today < $firstPaymentDay){                      // 初回支払日が未来
