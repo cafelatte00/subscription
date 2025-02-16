@@ -20,7 +20,7 @@ class SubscriptionController extends Controller
         return view('subscriptions.index', compact('subscriptions', 'user'));
     }
 
-    // モーダルFormからの新規保存 Ajax
+    // モーダルFormからの新規保存 (Ajax)
     public function addSubscription(StoreSubscriptionRequest $request){
         $user = Auth::user();
         $today = Carbon::now();   // 現在の日時を取得
@@ -38,7 +38,7 @@ class SubscriptionController extends Controller
             $nextPaymentDay = $firstPaymentDay;
         }
         if( $today > $firstPaymentDay){                      // 初回支払日が過去
-            $calcPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);   // （仮に１ヶ月ごとの課金だと仮定し）計算用の課金日
+            $calcPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);   // 計算用の課金日
 
             while($today >= $calcPaymentDay){
                 $numberOfPayments += 1;
