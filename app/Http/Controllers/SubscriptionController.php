@@ -20,7 +20,7 @@ class SubscriptionController extends Controller
         return view('subscriptions.index', compact('subscriptions', 'user'));
     }
 
-    // モーダルFormからの新規保存 Ajax
+    // モーダルFormからの新規保存 (Ajax)
     public function addSubscription(StoreSubscriptionRequest $request){
         $user = Auth::user();
         $today = Carbon::now();   // 現在の日時を取得
