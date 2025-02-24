@@ -36,6 +36,7 @@ class SubscriptionController extends Controller
         }
         if( $today < $firstPaymentDay){                      // 初回支払日が未来
             $nextPaymentDay = $firstPaymentDay;
+            $numberOfPayments = 0;
         }
         if( $today > $firstPaymentDay){                      // 初回支払日が過去
             $calcPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);   // 計算用の課金日
