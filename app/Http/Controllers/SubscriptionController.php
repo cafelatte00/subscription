@@ -30,7 +30,7 @@ class SubscriptionController extends Controller
         $frequency = $request->frequency;
 
         /*
-        * 今日が初回支払日と比べて未来・同じ・過去かで次回支払日と支払い回数を計算
+        * 初回支払日が今日と比べて未来・同じ・過去かで次回支払日と支払い回数を計算
         */
         if($today == $firstPaymentDay){
             $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);
