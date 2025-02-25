@@ -97,11 +97,11 @@ class SubscriptionController extends Controller
 
     public function update(StoreSubscriptionRequest $request, $id)
     {
-        $user = auth()->user();
         $subscription = Subscription::find($id);
         $originalSubscription = clone $subscription; // 変更前のサブスク情報
         $originalSubscription->first_payment_day = Carbon::parse($originalSubscription->first_payment_day);
 
+        $user = auth()->user();
         if($user->can('update',$subscription)){
 
             $subscription->title = $request->title;
@@ -114,25 +114,28 @@ class SubscriptionController extends Controller
             // 初回支払日と支払い頻度に変更があれば、初回支払日・次回支払日・支払い回数を確認する
             if($originalSubscription->first_payment_day->ne($subscription->first_payment_day) || $originalSubscription->frequency !== (int)$subscription->frequency){
 
-                $today = Carbon::today();
+                $today = Carbon::now();
                 $subscription->next_payment_day = null;
                 $subscription->number_of_payments = 0;
 
                 // 初回支払日が本日・未来・過去かによって代入値をかえる
-                if($today == $subscription->first_payment_day){               // 初回支払日が本日
+                if($today->isToday($subscription->first_payment_day)){               // 初回支払日が本日
                     $subscription->next_payment_day = $subscription->first_payment_day->copy()->addMonthNoOverflow($subscription->frequency);
                     $subscription->number_of_payments = 1;
-                }elseif( $today < $subscription->first_payment_day){                      // 初回支払日が未来
+                }
+                if( $today < $subscription->first_payment_day){                      // 初回支払日が未来
                     $subscription->next_payment_day = $subscription->first_payment_day;
-                }else{
-                    $subscription->number_of_payments = 1;                                                   // 初回支払日が過去
-                    $calcPaymentDay = $subscription->first_payment_day->copy()->addMonthNoOverflow($subscription->frequency); // 計算用の課金日
-                    $subscription->next_payment_day = $calcPaymentDay;
+                    $subscription->number_of_payments = 0;
+                }
+                if( $today > $subscription->first_payment_day){                      // 初回支払日が過去
+                    $calcPaymentDay = $subscription->first_payment_day->copy()->addMonthNoOverflow($subscription->frequency);   // 計算用の課金日
 
                     while($today >= $calcPaymentDay){
                         $subscription->number_of_payments++;
                         $calcPaymentDay = $calcPaymentDay->copy()->addMonthNoOverflow($subscription->frequency);
-                        $subscription->next_payment_day = $calcPaymentDay;
+                    }
+                    if($subscription->next_payment_day <= $today){
+                        $subscription->next_payment_day->addMonthNoOverflow($subscription->frequency);
                     }
                 }
             }
