@@ -8,18 +8,19 @@ class CheckSubscriptionService
 {
     public static function checkFrequency($subscription)
     {
-        if($subscription->frequency === 1){ $frequency = '1ヶ月'; }
-        if($subscription->frequency === 2){ $frequency = '2ヶ月'; }
-        if($subscription->frequency === 3){ $frequency = '3ヶ月'; }
-        if($subscription->frequency === 6){ $frequency = '6ヶ月'; }
-        if($subscription->frequency === 12){ $frequency = '1年'; }
-
-        return $frequency;
+        $frequencies = [
+            1 => '1ヶ月',
+            2 => '2ヶ月',
+            3 => '3ヶ月',
+            6 => '6ヶ月',
+            12 => '1年',
+        ];
+        return $frequencies[$subscription->frequency];
     }
 
-    public static function calculatePaymentDetails(Carbon $firstPaymentDay, int $frequency, Carbon $today = null)
+    public static function calculatePaymentDetails(Carbon $firstPaymentDay, int $frequency)
     {
-        $today = $today ?? Carbon::today();   // 本日を取得 ?? これいる？
+        $today = Carbon::today();   // 本日を取得
         $nextPaymentDay = null;  //次回支払日
         $numberOfPayments = 0;  // 支払い回数
 
