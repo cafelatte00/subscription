@@ -4,9 +4,19 @@ namespace App\Services;
 
 use Carbon\Carbon;
 
+/**
+ * サブスクリプションに関連するチェックや計算を行うサービスクラス
+ */
 class CheckSubscriptionService
 {
-    public static function checkFrequency($subscription)
+
+    /**
+     * サブスクの頻度を人間が読みやすい形式で取得します。
+     *
+     * @param Subscription $subscription サブスクリプションのインスタンス
+     * @return string 頻度を表す文字列
+     */
+    public static function checkFrequency($subscription): string
     {
         $frequencies = [
             1 => '1ヶ月',
@@ -18,15 +28,19 @@ class CheckSubscriptionService
         return $frequencies[$subscription->frequency];
     }
 
-    public static function calculatePaymentDetails(Carbon $firstPaymentDay, int $frequency)
+    /**
+     * 初回支払日と頻度から次回支払日と支払い回数を計算します。
+     *
+     * @param Carbon $firstPaymentDay 初回支払日
+     * @param int $frequency 支払い頻度（月単位）
+     * @return array 次回支払日と支払い回数を含む連想配列
+     */
+    public static function calculatePaymentDetails(Carbon $firstPaymentDay, int $frequency): array
     {
         $today = Carbon::today();   // 本日を取得
         $nextPaymentDay = null;  //次回支払日
         $numberOfPayments = 0;  // 支払い回数
 
-                /*
-        * 初回支払日が今日と比べて未来・同じ・過去かで次回支払日と支払い回数を計算
-        */
         if($today == $firstPaymentDay){
             $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);
             $numberOfPayments = 1;
