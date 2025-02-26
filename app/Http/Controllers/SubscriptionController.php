@@ -93,7 +93,6 @@ class SubscriptionController extends Controller
             // 初回支払日と支払い頻度に変更があれば、初回支払日・次回支払日・支払い回数を確認する
             if($originalSubscription->first_payment_day->ne($subscription->first_payment_day) || $originalSubscription->frequency !== (int)$subscription->frequency){
 
-                // ここにサービスおく
                 $paymentDetails =CheckSubscriptionService::calculatePaymentDetails($subscription->first_payment_day, $subscription->frequency);
                 $subscription->next_payment_day = $paymentDetails['nextPaymentDay'];
                 $subscription->number_of_payments = $paymentDetails['numberOfPayments'];
