@@ -1,8 +1,9 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             パスワードを変更
         </h2>
+
     </header>
 
     <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
