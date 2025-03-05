@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -28,6 +29,16 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
+        if($request->hasFile('image')){
+            // 古い画像を保存
+            if($request->user()->image){
+                Storage::disk('public')->delete($request->user->image);
+            }
+            // 新しい画像を保存
+            $path = $request->file('image')->store('profile_images', 'public');
+            $request->user()->image = $path;
+        }
+
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
@@ -36,6 +47,21 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
+    /**
+     * プロフィール画像削除
+     */
+    public function destroyImage(Request $request): RedirectResponse
+    {
+        if($request->user()->image){
+            Storage::disk('public')->delete($request->user()->image);
+            $request->user()->image = null;
+            $request->user()->save();
+        }
+
+        return Redirect::route('profile.edit')->with('status', 'image-deleted');
+    }
+
 
     /**
      * Delete the user's account.

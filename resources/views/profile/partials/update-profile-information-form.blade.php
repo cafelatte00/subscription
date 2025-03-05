@@ -1,24 +1,30 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
+            プロフィールを編集
         </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
     </header>
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+    <form id="send-verification" method="post" action="{{ route('verification.send') }}" >
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <label for="image">プロフィール画像</label>
+            <input type="file" name="image" id="image">
+            @if ($user->image)
+                <div>
+                    <img src="{{ asset('storage/' . $user->image) }}" alt="プロフィール画像" style="max-width: 150px;">
+                </div>
+            @endif
+        </div>
+
+        <div>
+            <x-input-label for="name" :value="__('validation.attributes.name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
@@ -61,4 +67,13 @@
             @endif
         </div>
     </form>
+
+    @if ($user->image)
+        <form method="POST" action="{{ route('profile.destroyImage') }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit">画像を削除する</button>
+        </form>
+    @endif
+
 </section>
