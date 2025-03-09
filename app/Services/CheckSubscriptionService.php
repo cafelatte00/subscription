@@ -44,7 +44,7 @@ class CheckSubscriptionService
         if($today == $firstPaymentDay){
             $nextPaymentDay = $firstPaymentDay->copy()->addMonthNoOverflow($frequency);
             $numberOfPayments = 1;
-        }elseif( $today < $firstPaymentDay){
+        }elseif($today < $firstPaymentDay){
             $nextPaymentDay = $firstPaymentDay;
         }else{
             $numberOfPayments = 1;      // 支払い回数：初回支払日が過去なので初回の支払いを必ず１回している

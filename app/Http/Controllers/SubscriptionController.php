@@ -118,4 +118,18 @@ class SubscriptionController extends Controller
             abort(403);
         }
     }
+
+    public function cancel(Request $request, $subscription)
+    {
+        $subscription = Subscription::find($subscription);
+
+        if($subscription->user_id !== auth()->id()){
+            abort(403, '権限がありません');
+        }
+
+        $subscription->cancel_day = Carbon::today();
+        $subscription->save();
+
+        return to_route('subscriptions.show', ['id' => $subscription->id])->with('status', 'サブスクを解約しました。');
+    }
 }

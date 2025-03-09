@@ -34,6 +34,7 @@ Route::prefix('subscriptions')->middleware(['auth'])
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::post('/{id}', 'update')->name('update');
     Route::post('/{id}/delete', 'delete')->name('delete');
+    Route::post('/{id}/cancel', 'cancel')->name('cancel');
 });
 
 Route::get('/', function () {

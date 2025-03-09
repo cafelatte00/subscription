@@ -25,11 +25,13 @@
                     </div>
                     <div class="flex">
                         {{-- 編集ボタン --}}
-                        <a href="{{ route('subscriptions.edit', ['id' => $subscription->id]) }}">
-                            <button type="button" class="rounded-full border border-pink-500 bg-pink-100 p-3 text-center text-base font-medium shadow-sm transition-all hover:border-pink-700 hover:bg-pink-200 focus:ring focus:ring-gray-200 disabled:cursor-not-allowed disabled:border-pink-300 disabled:bg-pink-300">
-                                <i class="las la-edit h-6 w-6"></i>
-                            </button>
-                        </a>
+                        @if(is_null($subscription->cancel_day))
+                            <a href="{{ route('subscriptions.edit', ['id' => $subscription->id]) }}">
+                                <button type="button" class="rounded-full border border-pink-500 bg-pink-100 p-3 text-center text-base font-medium shadow-sm transition-all hover:border-pink-700 hover:bg-pink-200 focus:ring focus:ring-gray-200 disabled:cursor-not-allowed disabled:border-pink-300 disabled:bg-pink-300">
+                                    <i class="las la-edit h-6 w-6"></i>
+                                </button>
+                            </a>
+                        @endif
                         {{-- 削除ボタン --}}
                         <form method="post" action="{{ route('subscriptions.delete', ['id' => $subscription->id]) }}" id="delete_{{ $subscription->id }}">
                             @csrf
@@ -39,15 +41,15 @@
                         </form>
                     </div>
                 </div>
-                <div class=" text-gray-900">
-                    料金：{{ $subscription->price }}円<br>
-                    支払い頻度：{{ $frequency }}に1回<br>
-                    初回支払日：{{ \Carbon\Carbon::parse($subscription->first_payment_day)->format('Y/m/d') }}<br>
-                    {{-- 次回支払日：{{ is_null($subscription->next_payment_day) ? substr($subscription->first_payment_day, 0, 10) : substr($subscription->next_payment_day, 0, 10) }}<br> --}}
-                    次回支払日：{{  \Carbon\Carbon::parse($subscription->next_payment_day)->format('Y/m/d') }}<br>
-                    支払回数：{{ $subscription->number_of_payments }}回<br>
-                    URL：{{ $subscription->url }}<br>
-                    メモ：{{ $subscription->memo }}<br>
+                <div class=" text-gray-900 leading-relaxed text-base">
+                    <p>料金：{{ $subscription->price }}円</p>
+                    <p>支払い頻度：{{ $frequency }}に1回</p>
+                    <p>初回支払日：{{ \Carbon\Carbon::parse($subscription->first_payment_day)->format('Y/m/d') }}</p>
+                    <p>次回支払日：{{ is_null($subscription->cancel_day) ? \Carbon\Carbon::parse($subscription->next_payment_day)->format('Y/m/d') : "--/ --/--" }}</p>
+                    <p>支払回数：{{ $subscription->number_of_payments }}回</p>
+                    <p>URL：{{ $subscription->url }}</p>
+                    <p>メモ：{{ $subscription->memo }}</p>
+                    <p>ステータス：{{ is_null($subscription->cancel_day) ? "契約中" : "解約済"}}</p>
                 </div>
             </div>
         </div>
