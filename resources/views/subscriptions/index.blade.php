@@ -31,7 +31,14 @@
                                 </div>
                             <h2 class="text-lg text-gray-900 font-medium title-font mb-2">{{ $subscription->title }}</h2>
                             <p class="leading-relaxed text-base">{{ $subscription->price }}円/{{ $checkSubscriptionService::checkFrequency($subscription) }}</p>
-                            <p class="leading-relaxed text-base">支払日：{{ is_null($subscription->next_payment_day) ? substr($subscription->first_payment_day, 0, 10) : substr($subscription->next_payment_day, 0, 10) }}</p>
+                            @if(is_null($subscription->cancel_day))
+                                <p class="leading-relaxed text-base">支払日：{{ is_null($subscription->next_payment_day) ? substr($subscription->first_payment_day, 0, 10) : substr($subscription->next_payment_day, 0, 10) }}</p>
+                            @else
+                                <p class="leading-relaxed text-base">支払日：--/ --/--</p>
+                            @endif
+                            <p class="leading-relaxed text-base">ステータス：{{ is_null($subscription->cancel_day) ? "契約中" : "解約済"}}
+                            </p>
+
                             </div>
                         </a>
                     </div>

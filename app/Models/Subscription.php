@@ -16,6 +16,7 @@ class Subscription extends Model
         'frequency',
         'first_payment_day',
         'next_payment_day',
+        'cancel_day',
         'number_of_payments',
         'url',
         'memo'
