@@ -26,6 +26,8 @@ Route::prefix('subscriptions')->middleware(['auth'])
 ->controller(subscriptionController::class)
 ->name('subscriptions.')
 ->group(function(){
+    Route::get('/chart-data', 'getChartData');
+    Route::get('/chart', 'chart')->name('subscriptions.chart');
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/add-subscription', 'addSubscription')->name('add.subscription');  // 新規保存モーダル

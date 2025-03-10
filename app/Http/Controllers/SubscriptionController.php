@@ -132,4 +132,23 @@ class SubscriptionController extends Controller
 
         return to_route('subscriptions.show', ['id' => $subscription->id])->with('status', 'サブスクを解約しました。');
     }
+
+    public function chart()
+    {
+        return view('subscriptions.chart');
+    }
+
+    public function getChartData()
+    {
+        $thisYear = Carbon::now()->year;
+        $oneYearAgo = Carbon::now()->subYear()->year;
+
+        $user = auth()->user(); //アクセスしているユーザ情報を取得
+        $subscriptions = Subscription::where('user_id', '=', $user->id)->get();
+
+        return response()->json([
+            'labels' => $subscriptions->pluck('title'),
+            'data' => $subscriptions->pluck('price'),
+        ]);
+    }
 }
