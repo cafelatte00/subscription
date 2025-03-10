@@ -132,4 +132,55 @@ class SubscriptionController extends Controller
 
         return to_route('subscriptions.show', ['id' => $subscription->id])->with('status', 'サブスクを解約しました。');
     }
+
+    public function chart()
+    {
+        return view('subscriptions.chart');
+    }
+
+    // public function getChartData()
+    // {
+    //     $thisYear = Carbon::now()->year;
+    //     $oneYearAgo = Carbon::now()->subYear()->year;
+
+    //     $user = auth()->user(); //アクセスしているユーザ情報を取得
+    //     $subscriptions = Subscription::where('user_id', '=', $user->id)->get();
+
+    //     return response()->json([
+    //         'labels' => $subscriptions->pluck('title'),
+    //         'data' => $subscriptions->pluck('price'),
+    //     ]);
+    // }
+    public function getChartData()
+{
+    $thisYear = Carbon::now()->year;
+    $oneYearAgo = Carbon::now()->subYear()->year;
+
+    $user = auth()->user(); //アクセスしているユーザ情報を取得
+    $subscriptions = Subscription::where('user_id', $user->id)
+        ->whereYear('first_payment_day', '>=', $oneYearAgo) // 過去1年分のデータ
+        ->get();
+
+    // 月ごとの合計金額を計算
+    $monthlyTotals = $subscriptions->groupBy(function ($subscription) {
+        return Carbon::parse($subscription->first_payment_day)->format('Y-m');
+    })->map(function ($group) {
+        return $group->sum('price'); // 各月の合計金額
+    });
+
+    // 過去12ヶ月分のラベルを作成
+    $labels = collect();
+    $data = collect();
+    for ($i = 11; $i >= 0; $i--) {
+        $month = Carbon::now()->subMonths($i)->format('Y-m');
+        $labels->push($month);
+        $data->push($monthlyTotals->get($month, 0)); // データがない月は 0 をセット
+    }
+
+    return response()->json([
+        'labels' => $labels,
+        'data' => $data,
+    ]);
+}
+
 }

@@ -22,6 +22,11 @@
                         すべてのサブスク
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('subscriptions.chart')" :active="request()->routeIs('subscriptions.chart')">
+                        グラフ分析
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -78,6 +83,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('subscriptions.index')" :active="request()->routeIs('subscriptions.index')">
                 すべてのサブスク
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('subscriptions.chart')" :active="request()->routeIs('subscriptions.chart')">
+                グラフ分析
             </x-responsive-nav-link>
         </div>
 
