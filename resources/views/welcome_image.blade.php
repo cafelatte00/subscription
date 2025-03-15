@@ -20,78 +20,32 @@
             }
         </style>
         <link rel="stylesheet" href="{{ asset('css/style.css')}}">
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     </head>
     <body class="antialiased">
-        {{-- ここに背景色 --}}
         <div class="relative flex items-top justify-center min-h-screen welcome-background-image sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700  underline">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
                     @else
-                        <div class="mt-6">
-                            <a href="{{ route('login') }}" class="login_link mr-6">ログイン</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="button-pink-outline">新規アカウント作成</a>
-                            @endif
-                        </div>
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                        @endif
                     @endauth
                 </div>
             @endif
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="mt-8 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-6">
-                            <div class="flex justify-center sm:mt-18 mb-6 sm:mb-20 sm:justify-start">
-                                <img src="{{ url('images/logo_white350x150.png') }}">
-                            </div>
-                            <p class="text-3xl sm:text-5xl pb-5 text-white text-center sm:text-left">サブスクを</p>
-                            <p class="text-3xl sm:text-5xl pb-5 text-white text-center sm:text-left">スカッとカット</p>
-                            <p class="text-3xl sm:text-5xl pb-12 sm:pb-20 text-white text-center sm:text-left">サブスカット</p>
-                            <div class="flex justify-center sm:justify-start">
-                                @if (Route::has('register'))
-                                <a href="{{ route('register') }}">
-                                    <button class="button-white-outline sm:justify-start">今すぐ始める</button>
-                                </a>
-                            @endif
-                            </div>
-                        </div>
+                                <!-- Logo -->
+                                <div class="shrink-0 flex justify-end">
+                                        {{-- <x-application-logo class="block h-auto w-4 fill-current" /> --}}
+                                        <img src="{{ url('images/welcome_mobile5.png') }}" class="text-right">
+                                        {{-- <img src="{{ url('images/welcome_desktop_right.png') }}" class="h-14 w-auto"> --}}
 
-                        <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
-                            <img src="{{ url('images/welcome_mobile5.png') }}">
-                        </div>
-                    </div>
-                </div>
 
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                            </svg>
-
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg>
-
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
-                </div>
+                                </div>
             </div>
         </div>
     </body>
