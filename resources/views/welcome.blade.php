@@ -26,7 +26,7 @@
     </head>
     <body class="antialiased">
         {{-- ここに背景色 --}}
-        <div class="relative flex items-top justify-center min-h-screen welcome-background-image sm:items-center py-4 sm:pt-0">
+        <section class="relative flex items-top justify-center min-h-screen welcome-background-image sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
@@ -66,33 +66,47 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                            </svg>
+        <section class="text-gray-600 body-font welcome-background-light-pink">
+            <div class="container px-5 py-24 mx-auto">
+                <h2 class="text-center text-pink-600 text-3xl sm:text-5xl pb-10 sm:mb-20">サブスカットの特徴</h2>
 
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg>
-
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
+                <div class="flex flex-wrap -m-4">
+                    <div class="p-4 md:w-1/3">
+                        <div class="h-full pink-shadow rounded-lg overflow-hidden">
+                            <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ url('images/mail.png') }}" alt="mail">
+                            <div class="p-6 bg-white">
+                                <h2 class="title-font text-lg font-medium text-gray-900 mb-3">課金日をメールでお知らせ</h2>
+                                <p class="leading-relaxed mb-3">登録したサブスクの課金日が近くなったらメールでお知らせ。解約しようと思っていたのに、忘れて課金されるのを防ぎます。
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                    <div class="p-4 md:w-1/3">
+                        <div class="h-full  pink-shadow rounded-lg overflow-hidden">
+                            <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ url('images/index.png') }}" alt="blog">
+                            <div class="p-6 bg-white">
+                                <h2 class="title-font text-lg font-medium text-gray-900 mb-3">一覧表示でパッと見やすい</h2>
+                                <p class="leading-relaxed mb-3">何に・いつ・いくら課金されるかを一覧でいつでも確認。「そういえばアレいつ引き落とし日だっけ？」というモヤモヤがなくなります。</p>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="p-4 md:w-1/3">
+                        <div class="h-full  pink-shadow rounded-lg overflow-hidden">
+                            <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ url('images/graph.png') }}">
+                            <div class="p-6 bg-white">
+                                <h2 class="title-font text-lg font-medium text-gray-900 mb-3">グラフ表示で直感的</h2>
+                                <p class="leading-relaxed mb-3">グラフ表示で直感的に使った金額を把握できます。「最近サブスクに結構お金を使っていたな」など、改善点が一目瞭然です。</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
+        </section>
     </body>
 </html>
