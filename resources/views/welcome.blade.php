@@ -25,12 +25,11 @@
 
     </head>
     <body class="antialiased">
-
         <section class="relative flex items-top justify-center min-h-screen welcome-background-image sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700  underline">Dashboard</a>
+                        <a href="{{ url('/subscriptions') }}" class="login_link">すべてのサブスク</a>
                     @else
                         <div class="mt-6">
                             <a href="{{ route('login') }}" class="login_link mr-6">ログイン</a>
@@ -43,7 +42,7 @@
             @endif
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="mt-8 overflow-hidden shadow sm:rounded-lg">
+                <div class="mt-8 overflow-hidden sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
                             <div class="flex justify-center sm:mt-18 mb-6 sm:mb-20 sm:justify-start">
@@ -54,14 +53,19 @@
                             <p class="text-3xl sm:text-5xl pb-12 sm:pb-20 text-white text-center sm:text-left">サブスカット</p>
                             <div class="flex justify-center sm:justify-start">
                                 @if (Route::has('register'))
-                                <a href="{{ route('register') }}">
-                                    <button class="button-white-outline sm:justify-start">今すぐ始める</button>
-                                </a>
-                            @endif
+                                    <a href="{{ route('register') }}">
+                                        <button class="button-white-outline sm:justify-start">今すぐ始める</button>
+                                    </a>
+                                @endif
+                            </div>
+                            <div class="flex justify-center sm:justify-start mt-6">
+                                @if (Route::has('login'))
+                                    <a href="{{ route('login') }}" class="login_link mr-6">ログイン</a>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
+                        <div class="p-6">
                             <img src="{{ url('images/welcome_mobile5.png') }}">
                         </div>
                     </div>
