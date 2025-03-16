@@ -25,7 +25,7 @@
 
     </head>
     <body class="antialiased">
-        {{-- ここに背景色 --}}
+
         <section class="relative flex items-top justify-center min-h-screen welcome-background-image sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -71,7 +71,7 @@
 
         <section class="text-gray-600 body-font welcome-background-light-pink">
             <div class="container px-5 py-24 mx-auto">
-                <h2 class="text-center text-pink-600 text-3xl sm:text-5xl pb-10 sm:mb-20">サブスカットの特徴</h2>
+                <h2 class="text-center text-pink-600 text-3xl sm:text-5xl pb-10 sm:my-20">サブスカットの特徴</h2>
 
                 <div class="flex flex-wrap -m-4">
                     <div class="p-4 md:w-1/3">
@@ -90,7 +90,7 @@
                             <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ url('images/index.png') }}" alt="blog">
                             <div class="p-6 bg-white">
                                 <h2 class="title-font text-lg font-medium text-gray-900 mb-3">一覧表示でパッと見やすい</h2>
-                                <p class="leading-relaxed mb-3">何に・いつ・いくら課金されるかを一覧でいつでも確認。「そういえばアレいつ引き落とし日だっけ？」というモヤモヤがなくなります。</p>
+                                <p class="leading-relaxed mb-3">何に・いつ・いくら課金されるかを一覧で確認できます。「そういえばアレいつ引き落とし日だっけ？」というモヤモヤがなくなります。</p>
                             </div>
                         </div>
                     </div>
@@ -104,9 +104,23 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
+        <section class="welcome-background-warm-pink">
+            <div class="sm:flex">
+                <div class="flex justify-center sm:mt-18 mb-6 sm:mb-20 sm:justify-start">
+                    <img src="{{ url('images/pc_mobile.png') }}">
+                </div>
+                <div class="flex items-center sm:ml-5 pb-20">
+                    <div class="m-auto">
+                        <p class="text-xl sm:text-2xl pb-5 text-white text-center sm:text-left">サブスク解約忘れを防止</p>
+                        <p class="text-xl sm:text-2xl pb-5 text-white text-center sm:text-left">モヤモヤ解消</p>
+                        <p class="text-xl sm:text-2xl pb-5 text-white text-center sm:text-left">サブスク管理アプリ、サブスカット</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="welcome-background-warm-pink text-white text-center">© SubsCut</footer>
     </body>
 </html>
