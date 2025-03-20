@@ -18,5 +18,10 @@ return [
     'throttled' => 'しばらく再試行はお待ちください。',
     'token' => 'このパスワードリセットトークンは無効です。',
     'user' => "メールアドレスに一致するユーザーは存在していません。",
-
+    'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.' => 'パスワードをお忘れですか？大丈夫です。Eメールアドレスをお知らせいただければ、パスワード再設定用のリンクをメールでお送りします。',
+    'Email' => 'メールアドレス',
+    'Password' => 'パスワード',
+    'Reset Password' => 'パスワードをリセット',
+    'Confirm Password' => 'パスワード（確認用）',
+    'Email Password Reset Link' => 'リセットメールを送信'
 ];
