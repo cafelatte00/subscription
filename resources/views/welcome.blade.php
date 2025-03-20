@@ -25,7 +25,7 @@
 
     </head>
     <body class="antialiased">
-        <section class="relative flex items-top justify-center min-h-screen welcome-background-image sm:items-center py-4 sm:pt-0">
+        <section class="relative flex items-top justify-center min-h-screen bg-salmon-pink sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
@@ -73,7 +73,7 @@
             </div>
         </section>
 
-        <section class="text-gray-600 body-font welcome-background-light-pink">
+        <section class="text-gray-600 body-font bg-light-pink">
             <div class="container px-5 py-24 mx-auto">
                 <h2 class="text-center text-pink-600 text-3xl sm:text-5xl pb-10 sm:my-20">サブスカットの特徴</h2>
 
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </section>
-        <section class="welcome-background-warm-pink">
+        <section class="bg-warm-pink">
             <div class="sm:flex">
                 <div class="flex justify-center sm:mt-18 mb-6 sm:mb-20 sm:justify-start">
                     <img src="{{ url('images/pc_mobile.png') }}">
@@ -125,6 +125,6 @@
                 </div>
             </div>
         </section>
-        <footer class="welcome-background-warm-pink text-white text-center">© SubsCut</footer>
+        <footer class="bg-warm-pink text-white text-center">© {{ date('Y') }} SubsCut. All rights reserved.</footer>
     </body>
 </html>
