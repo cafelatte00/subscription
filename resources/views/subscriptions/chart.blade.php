@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="border-pink overflow-hidden pink-shadow sm:rounded-lg p-3 lg:p-14">
-                {{-- クローズボタン --}}
+
                 <div class="flex justify-end pb-4">
                     <a href="{{ route('subscriptions.index') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 hover:text-gray-600">
