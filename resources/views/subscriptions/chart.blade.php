@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12 bg-warm-pink">
+    <div class="py-12 bg-warm-pink bg-height-100vh">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white border-pink overflow-hidden pink-shadow sm:rounded-lg p-3 lg:p-14">
 
