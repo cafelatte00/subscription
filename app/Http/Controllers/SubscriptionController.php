@@ -17,6 +17,11 @@ class SubscriptionController extends Controller
         $user = Auth::user();
         $subscriptions = Subscription::latest()->where('user_id', '=', $user->id)->paginate(5);
 
+        // サブスクリプションごとに支払い情報を更新
+        foreach ($subscriptions as $subscription) {
+            $this->updateSubscriptionPaymentDetails($subscription);
+        }
+
         return view('subscriptions.index', compact('subscriptions', 'user'));
     }
 
@@ -56,6 +61,8 @@ class SubscriptionController extends Controller
         $user = auth()->user(); //アクセスしているユーザ情報を取得
 
         if($user->can('view',$subscription)){
+            // 表示前に支払い情報を更新
+            $this->updateSubscriptionPaymentDetails($subscription);
             $frequency = CheckSubscriptionService::checkFrequency($subscription);
             return view('subscriptions.show',compact('subscription', 'frequency'));
         }else{
@@ -195,4 +202,23 @@ class SubscriptionController extends Controller
         ]);
     }
 
+    // サブスクの支払い情報を最新の状態に保つ。
+    private function updateSubscriptionPaymentDetails(Subscription $subscription)
+    {
+        $today = Carbon::today();
+
+        // キャンセル日があり、かつ今日より過去なら更新しない
+        if($subscription->cancel_day && Carbon::parse($subscription->cancel_day)->lt($today)){
+            return;
+        }
+
+        $paymentDetails = CheckSubscriptionService::calculatePaymentDetails(
+            Carbon::parse($subscription->first_payment_day),
+            $subscription->frequency
+        );
+
+        $subscription->next_payment_day = $paymentDetails['nextPaymentDay'];
+        $subscription->number_of_payments = $paymentDetails['numberOfPayments'];
+        $subscription->save();
+    }
 }
