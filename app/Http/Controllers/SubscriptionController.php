@@ -19,7 +19,7 @@ class SubscriptionController extends Controller
 
         // サブスクリプションごとに支払い情報を更新
         foreach ($subscriptions as $subscription) {
-            $this->updateSubscriptionPaymentDetails($subscription);
+            $this->updateSubscriptionPaymentDetails($subscription);    // SubscriptionController のインスタンス
         }
 
         return view('subscriptions.index', compact('subscriptions', 'user'));
