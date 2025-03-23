@@ -19,6 +19,7 @@
 
             <div id="index-flame" class="">
                 @foreach($subscriptions as $subscription)
+                    {{-- ここから追加 --}}
                     <div class="p-4">
                         <a href="{{ route('subscriptions.show', ['id' => $subscription->id]) }}">
                             <div class="bg-white p-6 rounded-lg">
@@ -66,6 +67,7 @@
                             </div>
                         </a>
                     </div>
+                    {{-- ここまで追加 --}}
                 @endforeach
             </div>
             <div>{!! $subscriptions->links() !!}</div>
