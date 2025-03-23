@@ -1,6 +1,5 @@
 <x-app-layout>
     @inject('checkSubscriptionService', 'App\Services\CheckSubscriptionService')
-    {{-- ここからテイルブロック --}}
     <section class="text-gray-600 body-font app-background-image">
         <div class="container py-10 mx-auto lg:px-[10rem]">
             {{-- フラッシュメッセージ --}}
@@ -25,7 +24,7 @@
                             <div class="bg-white p-6 rounded-lg">
                                 <h2 class="text-2xl sm:text-4xl font-bold text-pink-500 mb-3">{{ $subscription->title }}</h2>
 
-                                <div class="md:flex md:justify-between md:justify-items-start sm:gap-x-5">
+                                <div class="md:flex md:justify-between  sm:gap-x-5">
                                     <div>
                                         <p class="font-black text-gray-400 ">料金</p>
                                         <p class="leading-relaxed text-2xl sm:text-4xl">
@@ -72,7 +71,6 @@
             <div>{!! $subscriptions->links() !!}</div>
         </div>
     </section>
-    {{-- ここまでテイルブロック --}}
     @include('subscriptions.add_modal')
     @include('subscriptions.add_js')
     @include('common.flash_message_fadeout_js')
