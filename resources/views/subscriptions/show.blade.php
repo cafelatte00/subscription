@@ -1,17 +1,17 @@
 <x-app-layout>
-    <div class="py-12">
+    <section class="text-gray-600 body-font  app-background-image">
+        {{-- <div class="container md:px-16 py-12 mx-auto"> --}}
+        <div class="container pt-14 md:pt-20 pb-10 mx-auto lg:px-[10rem]">
 
-
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- フラッシュメッセージ --}}
             @if (session('status'))
                 <div id="flash-message" class="alert alert-info">
                     {{ session('status') }}
                 </div>
             @endif
-            <div class="border-pink overflow-hidden pink-shadow sm:rounded-lg p-3 lg:p-14">
+            <div class="bg-white p-4 border-pink overflow-hidden pink-shadow sm:rounded-lg lg:p-14">
                 {{-- クローズボタン --}}
-                <div class="flex justify-end pb-4">
+                <div class="flex justify-end pb-12 ">
                     <a href="{{ route('subscriptions.index') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 hover:text-gray-600">
                             <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
@@ -20,9 +20,9 @@
                 </div>
 
                 <div class="flex justify-between">
-                    <div class="font-semibold text-3xl text-gray-800 leading-tight">
-                        {{ $subscription->title }}
-                    </div>
+                    <h2 class="title-font sm:text-4xl text-xl font-bold text-pink-500 mb-3">
+                    {{ $subscription->title }}
+                    </h2>
                     <div class="flex">
                         {{-- 編集ボタン --}}
                         @if(is_null($subscription->cancel_day))
@@ -35,7 +35,7 @@
                         {{-- 削除ボタン --}}
                         <form method="post" action="{{ route('subscriptions.delete', ['id' => $subscription->id]) }}" id="delete_{{ $subscription->id }}">
                             @csrf
-                            <button type="button" data-id="{{ $subscription->id }}" onclick="deleteSubscription(this)" class="rounded-full border border-pink-500 bg-pink-500 p-3 ml-2 text-center text-base font-medium text-white shadow-sm transition-all hover:border-pink-700 hover:bg-pink-700 focus:ring focus:ring-pink-200 disabled:cursor-not-allowed disabled:border-pink-300 disabled:bg-pink-300">
+                            <button type="button" data-id="{{ $subscription->id }}" onclick="deleteSubscription(this)" class="rounded-full border border-pink-500 bg-pink-500 p-3 ml-2 text-center text-base font-medium text-white shadow-sm transition-all hover:border-pink-600 hover:bg-pink-600 focus:ring focus:ring-pink-200 disabled:cursor-not-allowed disabled:border-pink-300 disabled:bg-pink-300">
                                 <i class="las la-trash h-6 w-6"></i>
                             </button>
                         </form>
@@ -48,12 +48,21 @@
                     <p>次回支払日：{{ is_null($subscription->cancel_day) ? \Carbon\Carbon::parse($subscription->next_payment_day)->format('Y/m/d') : "--/ --/--" }}</p>
                     <p>支払回数：{{ $subscription->number_of_payments }}回</p>
                     <p>URL：{{ $subscription->url }}</p>
-                    <p>メモ：{{ $subscription->memo }}</p>
-                    <p>ステータス：{{ is_null($subscription->cancel_day) ? "契約中" : "解約済"}}</p>
+                    ステータス：
+                    @if (is_null($subscription->cancel_day))
+                        <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-pink-500 text-white">
+                            契約中
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-500 text-white">
+                            解約済
+                        </span>
+                    @endif
+                    <p class="pb-12">メモ：{{ $subscription->memo }}</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
 {{-- 削除確認メッセージ --}}
 <script>
