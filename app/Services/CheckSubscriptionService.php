@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Subscription;
 use Carbon\Carbon;
 
 /**

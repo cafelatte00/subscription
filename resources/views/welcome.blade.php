@@ -29,7 +29,7 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/subscriptions') }}" class="login_link">すべてのサブスク</a>
+                        <a href="{{ url('/subscriptions') }}" class="login_link">すべてのサブスクへ</a>
                     @else
                         <div class="mt-6">
                             <a href="{{ route('login') }}" class="login_link mr-6">ログイン</a>
@@ -66,7 +66,7 @@
                         </div>
 
                         <div class="p-6">
-                            <img src="{{ url('images/welcome_mobile5.png') }}">
+                            <img src="{{ url('images/welcome_mobile.png') }}">
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
             </div>
         </section>
         <section class="bg-warm-pink">
-            <div class="sm:flex">
+            <div class="sm:flex sm:justify-center sm:items-center sm:gap-x-10">
                 <div class="flex justify-center sm:mt-18 mb-6 sm:mb-20 sm:justify-start">
                     <img src="{{ url('images/pc_mobile.png') }}">
                 </div>

@@ -72,7 +72,7 @@
                                                     </button>
                                                 </a>
                                                 <button class="ml-2 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">
-                                                    更新する
+                                                    更新
                                                 </button>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
                                         </button>
                                     </a>
                                     <button class="ml-2 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">
-                                        解約する
+                                        解約
                                     </button>
                                 </div>
                             </form>

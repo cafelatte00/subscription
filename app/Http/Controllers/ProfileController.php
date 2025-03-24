@@ -28,11 +28,13 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
+        // dd($request->user(), $request->user()->image);
 
         if($request->hasFile('image')){
-            // 古い画像を保存
+            // 古い画像を削除
             if($request->user()->image){
-                Storage::disk('public')->delete($request->user->image);
+                Storage::disk('public')->delete($request->user()->image);
+                $request->user()->image = null;
             }
             // 新しい画像を保存
             $path = $request->file('image')->store('profile_images', 'public');

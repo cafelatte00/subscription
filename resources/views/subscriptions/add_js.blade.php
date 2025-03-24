@@ -29,11 +29,59 @@
                 $('#addModal').modal('hide');
                 $('#addSubscriptionForm')[0].reset();
                 let payDay = (res.new_subscription.next_payment_day === null) ? res.new_subscription.first_payment_day : res.new_subscription.next_payment_day;
-                // 新規登録したサブスクをindexに追加
-                $('#index-flame').prepend('<div class="p-4"><a href="'+ location.href + '/' + res.new_subscription.id +'"'+'><div class="bg-white p-6 rounded-lg"><div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-pink-100 text-pink-500 mb-4"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><div></div><h2 class="text-lg text-gray-900 font-medium title-font mb-2">'
-                    +res.new_subscription.title+'</h2><p class="leading-relaxed text-base">'+res.new_subscription.price+'円/'+ showFrequencyWithSuffix(res.new_subscription.frequency) + '</p><p>支払日：' +payDay.slice(0,10)+'</p>'+
-                    '</div></a></div>');
 
+                // 新しいサブスクの要素を用意
+                let newSubscription = `
+                    <div class="p-4">
+                        <a href="${location.origin}/subscriptions/${res.new_subscription.id}">
+                            <div class="bg-white p-6 rounded-lg">
+                                <h2 class="text-2xl sm:text-4xl font-bold text-pink-500 mb-3">
+                                    ${res.new_subscription.title}
+                                </h2>
+                                <div class="md:flex md:justify-between  sm:gap-x-5">
+                                    <div>
+                                        <p class="font-black text-gray-400 ">料金</p>
+                                        <p class="leading-relaxed text-2xl sm:text-4xl">
+                                            ${res.new_subscription.price }円 <span class="text-2xl font-black text-gray-400">/ 回数を書く</span>
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        ${res.new_subscription.cancel_day === null ?
+                                            `<p class="leading-relaxed text-lg">
+                                                <span class="font-black text-gray-400">支払日：</span>
+                                                ${res.new_subscription.next_payment_day ? res.new_subscription.next_payment_day.substring(0, 10) : res.new_subscription.first_payment_day.substring(0, 10)}
+                                            </p>` :
+                                            `<p class="leading-relaxed text-lg">
+                                                <span class="font-black text-gray-400">支払日：</span>
+                                                --/--/--
+                                            </p>`
+                                        }
+                                        <p class="leading-relaxed text-lg">
+                                            <span class="font-black text-gray-400">支払回数：</span>
+                                            ${res.new_subscription.number_of_payments}回
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="leading-relaxed text-lg">
+                                            <span class="font-black text-gray-400">ステータス：</span>
+                                            ${res.new_subscription.cancel_day === null ?
+                                                `<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-pink-500 text-white">
+                                                    契約中
+                                                </span>` :
+                                                `<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-500 text-white">
+                                                    解約済
+                                                </span>`
+                                            }
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+                $('#index-flame').prepend(newSubscription);
                     // ajax用のフラッシュメッセージ
                     showFlashMessage('サブスクを登録しました。','success');
             }).fail(function(error){

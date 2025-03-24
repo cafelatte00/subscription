@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="py-12">
+    <div class="py-12 bg-warm-pink bg-height-100vh">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="border-pink overflow-hidden pink-shadow sm:rounded-lg p-3 lg:p-14">
-                {{-- クローズボタン --}}
+            <div class="bg-white border-pink overflow-hidden pink-shadow sm:rounded-lg p-3 lg:p-14">
+
                 <div class="flex justify-end pb-4">
                     <a href="{{ route('subscriptions.index') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 hover:text-gray-600">
@@ -13,7 +13,7 @@
 
 
                 <div class="container">
-                    <h2>サブスクリプション料金チャート</h2>
+                    <h2>サブスクリプション料金チャート(最長2年間表示)</h2>
                     <canvas id="subscriptionChart"></canvas>
                 </div>
 
@@ -30,7 +30,9 @@
                                     datasets: [{
                                         label: "サブスク料金 (円)",
                                         data: data.data,
-                                        backgroundColor: "rgba(54, 162, 235, 0.6)"
+                                        backgroundColor: "rgba(129, 216, 208, 0.8)",
+                                        borderColor: "rgba(129, 216, 208, 1)", // 枠線（濃いめの同色）
+                                        borderWidth: 1
                                     }]
                                 }
                             });

@@ -17,11 +17,17 @@ class SubscriptionController extends Controller
         $user = Auth::user();
         $subscriptions = Subscription::latest()->where('user_id', '=', $user->id)->paginate(5);
 
+        // サブスクリプションごとに支払い情報を更新
+        foreach ($subscriptions as $subscription) {
+            $this->updateSubscriptionPaymentDetails($subscription);    // SubscriptionController のインスタンス
+        }
+
         return view('subscriptions.index', compact('subscriptions', 'user'));
     }
 
     // モーダルFormからの新規保存 (Ajax)
-    public function addSubscription(StoreSubscriptionRequest $request){
+    public function addSubscription(StoreSubscriptionRequest $request)
+    {
         $user = Auth::user();
         $firstPaymentDay = Carbon::parse($request->first_payment_day); // 初回支払日
         $frequency = $request->frequency;
@@ -55,6 +61,8 @@ class SubscriptionController extends Controller
         $user = auth()->user(); //アクセスしているユーザ情報を取得
 
         if($user->can('view',$subscription)){
+            // 表示前に支払い情報を更新
+            $this->updateSubscriptionPaymentDetails($subscription);
             $frequency = CheckSubscriptionService::checkFrequency($subscription);
             return view('subscriptions.show',compact('subscription', 'frequency'));
         }else{
@@ -138,49 +146,79 @@ class SubscriptionController extends Controller
         return view('subscriptions.chart');
     }
 
-    // public function getChartData()
-    // {
-    //     $thisYear = Carbon::now()->year;
-    //     $oneYearAgo = Carbon::now()->subYear()->year;
+        public function getChartData()
+    {
+        $user = auth()->user();
+        $subscriptions = Subscription::where('user_id', $user->id)->get();
 
-    //     $user = auth()->user(); //アクセスしているユーザ情報を取得
-    //     $subscriptions = Subscription::where('user_id', '=', $user->id)->get();
+        $oldestDate = $subscriptions->min('first_payment_day');
+        $startDate = $oldestDate ? Carbon::parse($oldestDate) : Carbon::now();
+        $endDate = Carbon::now();
 
-    //     return response()->json([
-    //         'labels' => $subscriptions->pluck('title'),
-    //         'data' => $subscriptions->pluck('price'),
-    //     ]);
-    // }
-    public function getChartData()
-{
-    $thisYear = Carbon::now()->year;
-    $oneYearAgo = Carbon::now()->subYear()->year;
+        $monthlyTotals = [];
 
-    $user = auth()->user(); //アクセスしているユーザ情報を取得
-    $subscriptions = Subscription::where('user_id', $user->id)
-        ->whereYear('first_payment_day', '>=', $oneYearAgo) // 過去1年分のデータ
-        ->get();
+        // $subscriptionsが空の場合、ループはスキップされる
+        foreach ($subscriptions as $subscription) {
+            $currentDate = Carbon::parse($subscription->first_payment_day);
+            $cancelDate =$subscription->cancel_day ? Carbon::parse($subscription->cancel_day) : null;
 
-    // 月ごとの合計金額を計算
-    $monthlyTotals = $subscriptions->groupBy(function ($subscription) {
-        return Carbon::parse($subscription->first_payment_day)->format('Y-m');
-    })->map(function ($group) {
-        return $group->sum('price'); // 各月の合計金額
-    });
+            // 解約日が課金日より前なら、このサブスクは記録しない
+            if($cancelDate && $cancelDate->lt($currentDate)){
+                continue;
+            }
+            while ($currentDate->lte($endDate)) {
+                // 解約日が設定されている場合は、その月は課金を記録し、それ以降は停止
+                if ($cancelDate && $currentDate->gte($cancelDate)) {
+                    break;
+                }
 
-    // 過去12ヶ月分のラベルを作成
-    $labels = collect();
-    $data = collect();
-    for ($i = 11; $i >= 0; $i--) {
-        $month = Carbon::now()->subMonths($i)->format('Y-m');
-        $labels->push($month);
-        $data->push($monthlyTotals->get($month, 0)); // データがない月は 0 をセット
+                $month = $currentDate->format('Y-m');
+                if (!isset($monthlyTotals[$month])) {
+                    $monthlyTotals[$month] = 0;
+                }
+                $monthlyTotals[$month] += $subscription->price;
+                $currentDate->addMonths($subscription->frequency);
+            }
+        }
+
+        $labels = [];
+        $data = [];
+        while ($startDate->lte($endDate)) {
+            $month = $startDate->format('Y-m');
+            $labels[] = $month;
+            $data[] = $monthlyTotals[$month] ?? 0;    // その月のサブスク支払い金額が無ければ0を入れる
+            $startDate->addMonth();
+        }
+
+        // ラベルやデータが25ヶ月以上だったら、24ヶ月分にする
+        if (count($labels) > 24) {
+            $labels = array_slice($labels, -24);
+            $data = array_slice($data, -24);
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'data' => $data,
+        ]);
     }
 
-    return response()->json([
-        'labels' => $labels,
-        'data' => $data,
-    ]);
-}
+    // サブスクの支払い情報を最新の状態に保つ。
+    private function updateSubscriptionPaymentDetails(Subscription $subscription)
+    {
+        $today = Carbon::today();
 
+        // キャンセル日があり、かつ今日より過去なら更新しない
+        if($subscription->cancel_day && Carbon::parse($subscription->cancel_day)->lt($today)){
+            return;
+        }
+
+        $paymentDetails = CheckSubscriptionService::calculatePaymentDetails(
+            Carbon::parse($subscription->first_payment_day),
+            $subscription->frequency
+        );
+
+        $subscription->next_payment_day = $paymentDetails['nextPaymentDay'];
+        $subscription->number_of_payments = $paymentDetails['numberOfPayments'];
+        $subscription->save();
+    }
 }
