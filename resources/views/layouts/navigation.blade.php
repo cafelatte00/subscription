@@ -62,6 +62,10 @@
                 <div class="hidden sm:flex sm:items-end sm:ml-6">
                     <img class="h-10 w-10 rounded-full m-2" src="{{ asset('storage/' . Auth::user()->image) }}" alt="プロフィール画像">
                 </div>
+                @else
+                <div class="hidden sm:flex sm:items-end sm:ml-6">
+                    <img class="h-10 w-10 rounded-full m-2" src="{{ url('images/default_profile.png') }}" alt="プロフィール画像">
+                </div>
                 @endif
             </div>
 

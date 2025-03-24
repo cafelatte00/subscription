@@ -15,11 +15,13 @@
 
         <div>
             <label for="image">プロフィール画像</label>
-            @if ($user->image)
-                <div>
+            <div class="mt-3 my-2">
+                @if ($user->image)
                     <img class="h-10 w-10 rounded-full" src="{{ asset('storage/' . $user->image) }}" alt="プロフィール画像" style="max-width: 150px;">
-                </div>
-            @endif
+                @else
+                    <img class="h-10 w-10 rounded-full" src="{{ url('images/default_profile.png') }}" alt="プロフィール画像" style="max-width: 150px;">
+                @endif
+            </div>
             <input type="file" name="image" id="image">
             <br/>
             <small>※新しいプロフィール画像をアップロードする場合は、こちらから選択してください。</small>
