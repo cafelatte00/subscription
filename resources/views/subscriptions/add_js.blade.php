@@ -42,7 +42,7 @@
                                     <div>
                                         <p class="font-black text-gray-400 ">料金</p>
                                         <p class="leading-relaxed text-2xl sm:text-4xl">
-                                            ${res.new_subscription.price }円 <span class="text-2xl font-black text-gray-400">/ 回数を書く</span>
+                                            ${res.new_subscription.price }円 <span class="text-2xl font-black text-gray-400">/ ${showFrequencyWithSuffix(res.new_subscription.frequency)}</span>
                                         </p>
                                     </div>
 
