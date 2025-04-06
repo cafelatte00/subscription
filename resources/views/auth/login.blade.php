@@ -38,7 +38,9 @@
                     {{ __('auth.Forgot your password?') }}
                 </a>
             @endif
-
+            <a class="ml-2 underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500" href="/">
+                戻る
+            </a>
             <x-primary-button class="ml-3">
                 {{ __('auth.Log in') }}
             </x-primary-button>

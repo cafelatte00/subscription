@@ -60,7 +60,9 @@
                             </div>
                             <div class="flex justify-center sm:justify-start mt-6">
                                 @if (Route::has('login'))
-                                    <a href="{{ route('login') }}" class="login_link mr-6">ログイン</a>
+                                    <!-- ゲストログイン -->
+                                    <a href="{{ route('guestLogin') }}" class="login_link mr-6">ゲストログイン</a>
+                                    <a href="{{ route('login') }}" class="sm:hidden login_link mr-6">ログイン</a>
                                 @endif
                             </div>
                         </div>
