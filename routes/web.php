@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,5 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::delete('/profile/image', [ProfileController::class, 'destroyImage'])->name('profile.destroyImage');
 });
+
+// ゲストログイン
+Route::get('/guest-login', [LoginController::class, 'guest'])->name('guestLogin');
 
 require __DIR__.'/auth.php';

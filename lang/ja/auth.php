@@ -24,7 +24,7 @@ return [
     'Forgot your password?' => 'パスワードをお忘れですか？',
     'Remember me' => 'ログイン状態を保持する',
     'Already registered?' => 'すでにアカウントをお持ちですか？',
-    'Register' => '登録する',
+    'Register' => '登録',
     'This is a secure area of the application. Please confirm your password before continuing.' => 'こちらはアプリケーションの安全なエリアです。続行するには、パスワードを入力して確認してください。',
     'Confirm' => '確認',
     'Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another' => 'ご登録ありがとうございます！登録を開始する前に、先ほどお送りしたリンクをクリックしてメールアドレスを確認していただけますか？もしメールを受け取らなかった場合は、喜んで別のメールをお送りします。',
