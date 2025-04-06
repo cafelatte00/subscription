@@ -12,8 +12,7 @@ class LoginController extends Controller
     // ゲストログイン
     public function guest()
     {
-        $guestUserID = 1;
-        $user = User::find($guestUserID);
+        $user = User::where('email', 'guest@example.com')->first();
         Auth::login($user);
 
         return redirect('/subscriptions');
