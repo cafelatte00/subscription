@@ -87,10 +87,13 @@
                     </div>
                     <p class="leading-relaxed text-lg mt-3">
                         <span class="font-black text-gray-400">URL：</span>
-                        {{ $subscription->url }}
+                        <a href="{{ $subscription->url }}" class="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
+                            {{ $subscription->url }}
+                        </a>
                     </p>
                     <p class="leading-relaxed text-lg">
                         <span class="font-black text-gray-400">メモ：</span>
+                        {{ $subscription->memo }}
                     </p>
                 </div>
             </div>
