@@ -51,20 +51,27 @@
                             <p class="text-3xl sm:text-5xl pb-5 text-white text-center sm:text-left">サブスクを</p>
                             <p class="text-3xl sm:text-5xl pb-5 text-white text-center sm:text-left">スカッとカット</p>
                             <p class="text-3xl sm:text-5xl pb-12 sm:pb-20 text-white text-center sm:text-left">サブスカット</p>
+                            @auth
                             <div class="flex justify-center sm:justify-start">
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}">
-                                        <button class="button-white-outline sm:justify-start">今すぐ始める</button>
-                                    </a>
-                                @endif
+                                <a href="{{ url('/subscriptions') }}" class="login_link sm:hidden">すべてのサブスクへ</a>
                             </div>
-                            <div class="flex justify-center sm:justify-start mt-6">
-                                @if (Route::has('login'))
-                                    <!-- ゲストログイン -->
-                                    <a href="{{ route('guestLogin') }}" class="login_link mr-6">ゲストログイン</a>
-                                    <a href="{{ route('login') }}" class="sm:hidden login_link mr-6">ログイン</a>
-                                @endif
-                            </div>
+                            @endauth
+                            @guest
+                                <div class="flex justify-center sm:justify-start">
+                                    @if (Route::has('register'))
+                                        <a href="{{ route('register') }}">
+                                            <button class="button-white-outline sm:justify-start">今すぐ始める</button>
+                                        </a>
+                                    @endif
+                                </div>
+                                <div class="flex justify-center sm:justify-start mt-6">
+                                    @if (Route::has('login'))
+                                        <!-- ゲストログイン -->
+                                        <a href="{{ route('guestLogin') }}" class="login_link mr-6">ゲストログイン</a>
+                                        <a href="{{ route('login') }}" class="sm:hidden login_link mr-6">ログイン</a>
+                                    @endif
+                                </div>
+                            @endguest
                         </div>
 
                         <div class="p-6">
@@ -96,7 +103,7 @@
                             <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ url('images/index.png') }}" alt="blog">
                             <div class="p-6 bg-white">
                                 <h2 class="title-font text-lg font-medium text-gray-900 mb-3">一覧表示でパッと見やすい</h2>
-                                <p class="leading-relaxed mb-3">何に・いつ・いくら課金されるかを一覧で確認できます。「そういえばアレいつ引き落とし日だっけ？」というモヤモヤがなくなります。</p>
+                                <p class="leading-relaxed mb-3">何に・いつ・いくら課金されるかを一覧で確認できます。「そういえばアレいつ課金されるんだっけ？」というモヤモヤがなくなります。</p>
                             </div>
                         </div>
                     </div>
